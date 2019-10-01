@@ -1,13 +1,24 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import { addNewCategory } from '../../actions/categories';
 import CategoryForm from './categoryForm';
 
 class CategoryFormPage extends React.Component {
-submit = values => {
-console.log(values)
-}
-render() {
-return <CategoryForm onSubmit={this.submit} />
-}
+    submit = formValues => {
+        console.log(formValues);console.log(this.props);
+        this.props.addNewCategory(formValues);
+    }
+    render() {
+        return <CategoryForm onSubmit={this.submit} />
+    }
 }
 
-export default CategoryFormPage;
+const mapDispatchToProps = { addNewCategory };
+
+// const mapDispatchToProps = dispatch => { debugger;
+//     return {
+//         addNewCategory: () => dispatch(addNewCategory())
+//     };
+// };
+
+export default connect(null, mapDispatchToProps)(CategoryFormPage);

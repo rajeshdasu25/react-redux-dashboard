@@ -61,7 +61,6 @@ footer {
 @media screen and (max-width: 767px) {
   .leftmenu-container {
     height: auto;
-    padding: 15px;
     width: 100%;
   }
   .main-container {
@@ -114,6 +113,11 @@ footer {
   margin-bottom: 0;
   background-color: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.card-header-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .card-header:first-child {
   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;

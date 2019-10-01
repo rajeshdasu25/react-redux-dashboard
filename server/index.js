@@ -14,13 +14,50 @@ app.use(function (req, res, next) {
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+function jsonReader(filePath, cb) {
+    fs.readFile(filePath, (err, fileData) => {
+        if (err) {
+            return cb && cb(err)
+        }
+        try {
+            const object = JSON.parse(fileData)
+            return cb && cb(null, object)
+        } catch(err) {
+            return cb && cb(err)
+        }
+    })
+}
+
 // An api endpoint that returns a short list of items
 app.get('/getCategories', (req, res) => {
-    fs.readFile('./data/categories.json', (err, data) => {
+    fs.readFile('./data/categories.json', 'utf8', (err, data) => {
         if (err) throw err;
         let categories = JSON.parse(data);
         res.json(categories);
     });
+});
+
+app.post('/addCategory', (req, res) => { console.log('request: ', req);
+    fs.readFile('./data/categories.json', (err, data) => {
+        if (err) throw err;
+        let categories = JSON.parse(data);
+        /*categories.push({
+            'id': categories.length + 1, 
+            'type': req.body.type, 
+            'label': req.body.label
+        });*/
+        console.log('categories: ', categories);
+    });
+    /*jsonReader('./data/categories.json', (err, category) => { console.log('category 1: ', category);
+        if (err) {
+            console.log('Error reading file:',err)
+            return
+        }
+        category.id += 1; console.log('category 2: ', category);
+        fs.writeFile('./data/categories.json', JSON.stringify(category), (err) => {
+            if (err) console.log('Error writing file:', err)
+        })
+    })*/
 });
 
 app.get('/getProducts', (req, res) => {
