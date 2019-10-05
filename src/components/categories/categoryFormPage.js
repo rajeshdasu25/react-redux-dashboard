@@ -5,7 +5,6 @@ import CategoryForm from './categoryForm';
 
 class CategoryFormPage extends React.Component {
     submit = formValues => {
-        console.log(formValues);console.log(this.props);
         this.props.addNewCategory(formValues);
     }
     render() {

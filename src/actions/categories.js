@@ -1,4 +1,5 @@
 import { FETCH_ALL_CATEGORIES, ADD_NEW_CATEGORY } from './types';
+import { setStatus } from './modal';
 import axios from 'axios';
 
 const categoriesListApiUrl = 'http://localhost:5000/getCategories';//'https://private-205f4-rajeshdasu.apiary-mock.com/categories';
@@ -11,7 +12,7 @@ export const fetchCategories = (categories) => {
     }
 };
 
-export const addCategory = (category) => { debugger;
+export const addCategory = (category) => { 
     return {
         type: ADD_NEW_CATEGORY,
         category
@@ -30,11 +31,13 @@ export const fetchAllCategories = () => {
     };
 };
 
-export const addNewCategory = (formData) => {debugger;
+export const addNewCategory = (formData) => {
     return (dispatch) => {
         return axios.post(addCategoryApiUrl, formData)
-            .then(response => {
-                dispatch(addCategory(response.data));
+            .then(response => { 
+                if(response.status === 200) {
+                    dispatch(setStatus(false));
+                }
             })
             .catch(error => {
                 throw (error);

@@ -4,26 +4,21 @@ import { Button, Modal } from 'react-bootstrap';
 
 import CategoryFormPage from './categoryFormPage';
 import { fetchAllCategories } from '../../actions/categories';
+import { getModalStatus, showModal, hideModal } from '../../actions/modal';
 
 class ViewAllCategories extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showModal: false,
-        };
-    }
     componentDidMount() {
         this.props.fetchAllCategories();
+        this.props.getModalStatus();
     }
     handleShowModal = () => {
-        this.setState({ 'showModal': true });
+        this.props.showModal(true);
     }
     handleHideModal = () => {
-        this.setState({ 'showModal': false });
+        this.props.hideModal(false);
     }
-
-    render() {
-        const { categories } = this.props;
+    render() { 
+        const { categories, modal } = this.props;
         return (
             <React.Fragment>
                 <div className="list-container">
@@ -53,19 +48,11 @@ class ViewAllCategories extends React.Component {
                             )
                         }
                     </table>
-                    <Modal size="lg" centered show={this.state.showModal} onHide={this.handleHideModal}>
+                    <Modal size="lg" centered show={modal.showAddCategoryModal} onHide={this.handleHideModal}>
                         <Modal.Header closeButton>
                             <Modal.Title>Add New Category</Modal.Title>
                         </Modal.Header>
                         <Modal.Body><CategoryFormPage /></Modal.Body>
-                        {/*<Modal.Footer>
-<Button variant="secondary" onClick={this.handleHideModal}>
-Close
-</Button>
-<Button variant="primary" onClick={this.handleHideModal}>
-Save Changes
-</Button>
-</Modal.Footer>*/}
                     </Modal>
                 </div>
             </React.Fragment>
@@ -75,13 +62,17 @@ Save Changes
 
 const mapStateToProps = state => {
     return {
-        categories: state.categories
+        categories: state.categories,
+        modal: state.modal
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllCategories: () => dispatch(fetchAllCategories())
+        fetchAllCategories: () => dispatch(fetchAllCategories()),
+        getModalStatus: () => dispatch(getModalStatus()),
+        showModal: () => dispatch(showModal()),
+        hideModal: () => dispatch(hideModal())
     };
 };
 

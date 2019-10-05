@@ -71,11 +71,14 @@ footer {
   }
 }
 
+/* Widget Info styles */
 .widget-info {
-  padding: 2em 0;
+  padding: 1em;
   text-align: center;
   color: #fff;
   border-radius: 10px;
+  font-size: larger;
+  font-weight: bold;
 }
 .widget-info.red {
   background: #ff4a43;
@@ -86,6 +89,17 @@ footer {
 .widget-info.purple {
   background: #8e44ad;
 }
+.widget-info h3 {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@media screen and (max-width: 767px) {
+  .widget-info {
+    padding: 0.5em;
+  }
+}
+/* Widget Info styles */
 
 .formBtns {
   margin: 0 0.5em;
@@ -114,13 +128,13 @@ footer {
   background-color: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
+.card-header:first-child {
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
 .card-header-text {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-}
-.card-header:first-child {
-  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
 }
 .card-body {
   flex: 1 1 auto;
@@ -133,3 +147,10 @@ footer {
   margin-bottom: 0;
 }
 /* Card box styles */
+
+.loader-container {
+  min-height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

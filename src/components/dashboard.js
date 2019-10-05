@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { Col, Row } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 import ReactHighcharts from 'react-highcharts';
+import Loader from 'react-loader-spinner';
 
 import CardBox from './common/CardBox.js';
 import WidgetInfo from './common/WidgetInfo.js';
@@ -23,44 +24,20 @@ class Dashboard extends React.Component {
     render() {
         const { categories, products, users } = this.props;
 
-        const categoriesList = categories.map((category, index) => {
-            return (
-                <div key={category.id}>
-                    <div>{category.label}</div>
-                </div>
-            );
-        });
-
-        const userList = users.map((user, index) => {
-            return (
-                <div key={user.id}>
-                    <div>{user.username}</div>
-                </div>
-            );
-        });
-
-        const productList = products.map((product, index) => {
-            return (
-                <div key={product.id}>
-                    <div>{product.title}</div>
-                </div>
-            );
-        });
-
         return (
             <React.Fragment>
                 <Row>
-                    <Col md={2} sm={6}>
+                    <Col md={2} xs={4} sm={6}>
                         <Link to="/users">
                             <WidgetInfo theme='red' text='Users' count={users.length} />
                         </Link>
                     </Col>
-                    <Col md={2} sm={6}>
+                    <Col md={2} xs={4} sm={6}>
                         <Link to="/categories">
                             <WidgetInfo theme='green' text='Categories' count={categories.length} />
                         </Link>
                     </Col>
-                    <Col md={2} sm={6}>
+                    <Col md={2} xs={4} sm={6}>
                         <Link to="/products">
                             <WidgetInfo theme='purple' text='Products' count={products.length} />
                         </Link>
@@ -73,13 +50,55 @@ class Dashboard extends React.Component {
                 </Row>
                 <Row>
                     <Col md={4} sm={6}>
-                        <CardBox header="Users" content={userList} />
+                        <Card>
+                            <Card.Header>Users</Card.Header>
+                            <Card.Body>
+                                {users && (users.length > 0) && users.map((user, index) => {
+                                    return (
+                                        <div key={user.id}>
+                                            <div>{user.username}</div>
+                                        </div>
+                                    );
+                                })}
+                                {users && (users.length === 0) && <div className="loader-container">
+                                    <Loader type="Watch" color="#00BFFF" />
+                                </div>}
+                            </Card.Body>
+                        </Card>
                     </Col>
                     <Col md={4} sm={6}>
-                        <CardBox header="Categories" content={categoriesList} />
+                        <Card>
+                            <Card.Header>Categories</Card.Header>
+                            <Card.Body>
+                                {categories && (categories.length > 0) && categories.map((category) => {
+                                    return (
+                                        <div key={category.id}>
+                                            <div>{category.label}</div>
+                                        </div>
+                                    );
+                                })}
+                                {categories && (categories.length === 0) && <div className="loader-container">
+                                    <Loader type="Watch" color="#00BFFF" />
+                                </div>}
+                            </Card.Body>
+                        </Card>
                     </Col>
                     <Col md={4} sm={6}>
-                        <CardBox header="Products" content={productList} />
+                        <Card>
+                            <Card.Header>Products</Card.Header>
+                            <Card.Body>
+                                {products && (products.length > 0) && products.map((product) => {
+                                    return (
+                                        <div key={product.id}>
+                                            <div>{product.title}</div>
+                                        </div>
+                                    );
+                                })}
+                                {products && (products.length === 0) && <div className="loader-container">
+                                    <Loader type="Watch" color="#00BFFF" />
+                                </div>}
+                            </Card.Body>
+                        </Card>
                     </Col>
                 </Row>
                 {/*<Row>

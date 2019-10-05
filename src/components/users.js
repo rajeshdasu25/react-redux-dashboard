@@ -1,19 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Loader from 'react-loader-spinner';
 
 import { fetchAllUsers } from '../actions/users';
 
 class Users extends React.Component {
     componentDidMount() {
-        // this.getUsers();
         this.props.fetchAllUsers();
     }
-
-    /*getUsers = () => {
-    fetch('http://localhost:5000/getUsers')
-    .then(res => res.json())
-    .then(users => this.setState({ users }))
-    }*/
 
     render() {
         const { users } = this.props;
@@ -30,25 +24,22 @@ class Users extends React.Component {
                                 <th>Email</th>
                             </tr>
                         </thead>
-                        {users.length ? (
-                            <tbody>
-                                {users.map((user, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{user.first_name}</td>
-                                            <td>{user.last_name}</td>
-                                            <td>{user.username}</td>
-                                            <td>{user.email}</td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        ) : (
-                                <tbody>
-                                    <tr><td>No Users Found</td></tr>
-                                </tbody>
-                            )
-                        }
+                        <tbody>
+                            {users && (users.length > 0) && users.map((user, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{user.first_name}</td>
+                                        <td>{user.last_name}</td>
+                                        <td>{user.username}</td>
+                                        <td>{user.email}</td>
+                                    </tr>
+                                );
+                            })}
+                            {users && (users.length === 0) && <tr><td colSpan="4"><div className="loader-container">
+                                <Loader type="Watch" color="#00BFFF" />
+                            </div></td></tr>}
+                            {!users && <tr><td colSpan="4">No data found..!!!</td></tr>}
+                        </tbody>
                     </table>
                 </div>
             </React.Fragment>
