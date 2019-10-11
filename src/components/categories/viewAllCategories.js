@@ -1,7 +1,10 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button, Modal } from 'react-bootstrap';
+import Loader from 'react-loader-spinner';
+import { Button/*, Modal*/ } from 'react-bootstrap';
 
+import ModalPopup from '../common/ModalPopup';
 import CategoryFormPage from './categoryFormPage';
 import { fetchAllCategories } from '../../actions/categories';
 import { getModalStatus, showModal, hideModal } from '../../actions/modal';
@@ -11,49 +14,65 @@ class ViewAllCategories extends React.Component {
         this.props.fetchAllCategories();
         this.props.getModalStatus();
     }
-    handleShowModal = () => {
-        this.props.showModal(true);
+    handleShowModal = (type, status) => {
+        this.props.showModal(type, status);
     }
     handleHideModal = () => {
         this.props.hideModal(false);
     }
-    render() { 
+    handleViewItem = () => {
+        this.props.showModal(true);
+    }
+    handleEditItem = () => {
+        this.props.showModal(true);
+    }
+    render() { console.log(this.props);
         const { categories, modal } = this.props;
         return (
             <React.Fragment>
                 <div className="list-container">
-                    <Button variant="primary" onClick={this.handleShowModal}>Add New</Button>
+                    <Button variant="primary" onClick={() => this.handleShowModal('addCategory', true)}>Add New</Button>
                     <table className="table table-bordered table-striped" style={{ 'margin': '0.5rem 0' }} >
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Type</th>
                                 <th>Label</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
-                        {categories.length ? (
-                            <tbody>
-                                {categories.map((category, index) => {
-                                    return (
-                                        <tr key={category.id}>
-                                            <td>{category.type}</td>
-                                            <td>{category.label}</td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        ) : (
-                                <tbody>
-                                    <tr><td>No Categories Found</td></tr>
-                                </tbody>
-                            )
-                        }
+                        <tbody>
+                            {categories && (categories.length > 0) && categories.map((category, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{category.type}</td>
+                                        <td>{category.label}</td>
+                                        <td>
+                                            <Button variant="link" size="xs" onClick={this.handleViewItem}>View</Button>&nbsp;
+                                        <Button variant="link" size="xs" onClick={this.handleEditItem}>Edit</Button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                            {categories && (categories.length === 0) && <tr><td colSpan="4"><div className="loader-container">
+                                <Loader type="Watch" color="#00BFFF" />
+                            </div></td></tr>}
+                            {!categories && <tr><td colSpan="4">No data found..!!!</td></tr>}
+                        </tbody>
                     </table>
-                    <Modal size="lg" centered show={modal.showAddCategoryModal} onHide={this.handleHideModal}>
+                    <ModalPopup
+                        show={modal.addCategory}
+                        title={'Add New'}
+                        body={<CategoryFormPage />}
+                        handleHideModal={this.handleHideModal}
+                    />
+                    {/*<Modal size="lg" centered show={modal.showAddCategoryModal} onHide={this.handleHideModal}>
                         <Modal.Header closeButton>
                             <Modal.Title>Add New Category</Modal.Title>
                         </Modal.Header>
                         <Modal.Body><CategoryFormPage /></Modal.Body>
-                    </Modal>
+                    </Modal>*/}
                 </div>
             </React.Fragment>
         );
@@ -68,12 +87,18 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
+    /*return {
         fetchAllCategories: () => dispatch(fetchAllCategories()),
         getModalStatus: () => dispatch(getModalStatus()),
-        showModal: () => dispatch(showModal()),
+        showModal: () => dispatch(showModal('', true)),
         hideModal: () => dispatch(hideModal())
-    };
+    };*/
+    return bindActionCreators({
+        fetchAllCategories: fetchAllCategories,
+        getModalStatus: getModalStatus,
+        showModal: showModal,
+        hideModal: hideModal
+    }, dispatch);
 };
 
 export default connect(

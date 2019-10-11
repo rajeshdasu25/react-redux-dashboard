@@ -4,16 +4,23 @@ export const getStatus = (status) => {
     return {
         type: GET_MODAL_STATUS,
         modal: {
-            showAddCategoryModal: status
+            showAddCategoryModal: status,
+            addCategory: status,
+            viewCategory: status,
+            editCategory: status
         }
     }
 };
 
-export const setStatus = (status) => {
+export const setStatus = (type, status) => { debugger; console.log('this:', this);console.log(type, status);
     return {
         type: SET_MODAL_STATUS,
         modal: {
-            showAddCategoryModal: status
+            showAddCategoryModal: status,
+            addCategory: status,
+            viewCategory: status,
+            editCategory: status,
+            type: status
         }
     }
 };
@@ -30,9 +37,9 @@ export const displayModal = (val) => {
     };
 };
 
-export const showModal = () => {
+export const showModal = (type, status) => { 
     return (dispatch) => {
-        dispatch(setStatus(true));
+        dispatch(setStatus(type, status));
     };
 };
 

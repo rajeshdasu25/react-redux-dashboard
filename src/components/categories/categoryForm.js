@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Button, Col, Row } from 'react-bootstrap';
 
 let CategoryForm = props => {
-    const { handleSubmit, pristine, reset, submitting } = props
+    const { handleSubmit, reset, /*pristine, submitting*/ } = props
     return (
         <form onSubmit={handleSubmit}>
             <div className="form-group">
