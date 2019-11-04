@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { Card, Col, Row } from 'react-bootstrap';
@@ -26,6 +27,9 @@ class Dashboard extends React.Component {
 
         return (
             <React.Fragment>
+                <Helmet>
+                    <title>Dashboard</title>
+                </Helmet>
                 <Row>
                     <Col md={2} xs={4} sm={6}>
                         <Link to="/users">

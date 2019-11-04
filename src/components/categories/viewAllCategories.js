@@ -1,5 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
 import { Button/*, Modal*/ } from 'react-bootstrap';
@@ -30,6 +31,9 @@ class ViewAllCategories extends React.Component {
         const { categories, modal } = this.props;
         return (
             <React.Fragment>
+                <Helmet>
+                    <title>Categories</title>
+                </Helmet>
                 <div className="list-container">
                     <Button variant="primary" onClick={() => this.handleShowModal('addCategory', true)}>Add New</Button>
                     <table className="table table-bordered table-striped" style={{ 'margin': '0.5rem 0' }} >

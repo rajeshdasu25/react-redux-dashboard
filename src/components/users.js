@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
 
@@ -13,6 +14,9 @@ class Users extends React.Component {
         const { users } = this.props;
         return (
             <React.Fragment>
+                <Helmet>
+                    <title>Users</title>
+                </Helmet>
                 <h1>Users</h1>
                 <div className="list-container">
                     <table className="table table-bordered table-striped">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import {
     CellMeasurer,
@@ -53,6 +54,9 @@ class Products extends React.Component {
 
         return (
             <React.Fragment>
+                <Helmet>
+                    <title>Products</title>
+                </Helmet>
                 <h1>Products</h1>
                 <Masonry
                     cellCount={products.length}
