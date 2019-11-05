@@ -12,7 +12,7 @@ export const getStatus = (status) => {
     }
 };
 
-export const setStatus = (type, status) => { debugger; console.log('this:', this);console.log(type, status);
+export const setStatus = (type, status) => { //debugger; console.log('this:', this);console.log(type, status);
     return {
         type: SET_MODAL_STATUS,
         modal: {
@@ -20,6 +20,7 @@ export const setStatus = (type, status) => { debugger; console.log('this:', this
             addCategory: status,
             viewCategory: status,
             editCategory: status,
+            addUser: status,
             type: status
         }
     }

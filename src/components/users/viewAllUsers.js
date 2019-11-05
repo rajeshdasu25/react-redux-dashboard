@@ -6,13 +6,13 @@ import Loader from 'react-loader-spinner';
 import { Button/*, Modal*/ } from 'react-bootstrap';
 
 import ModalPopup from '../common/ModalPopup';
-import CategoryFormPage from './categoryFormPage';
-import { fetchAllCategories } from '../../actions/categories';
+import UserFormPage from './userFormPage';
+import { fetchAllUsers } from '../../actions/users';
 import { getModalStatus, showModal, hideModal } from '../../actions/modal';
 
-class ViewAllCategories extends React.Component {
+class ViewAllUsers extends React.Component {
     componentDidMount() {
-        this.props.fetchAllCategories();
+        this.props.fetchAllUsers();
         this.props.getModalStatus();
     }
     handleShowModal = (type, status) => {
@@ -28,54 +28,56 @@ class ViewAllCategories extends React.Component {
         this.props.showModal(true);
     }
     render() { 
-        const { categories, modal } = this.props;
+        const { users, modal } = this.props;
         return (
             <React.Fragment>
                 <Helmet>
-                    <title>Categories</title>
+                    <title>Users</title>
                 </Helmet>
                 <div className="list-container">
-                    <Button variant="primary" onClick={() => this.handleShowModal('addCategory', true)}>Add New</Button>
+                    <Button variant="primary" onClick={() => this.handleShowModal('addUser', true)}>Add New</Button>
                     <table className="table table-bordered table-striped" style={{ 'margin': '0.5rem 0' }} >
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Type</th>
-                                <th>Label</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {categories && (categories.length > 0) && categories.map((category, index) => {
+                            {users && (users.length > 0) && users.map((user, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{category.type}</td>
-                                        <td>{category.label}</td>
+                                        <td>{user.first_name}</td>
+                                        <td>{user.last_name}</td>
+                                        <td>{user.username}</td>
+                                        <td>{user.email}</td>
                                         <td>
                                             <Button variant="link" size="xs" onClick={this.handleViewItem}>View</Button>&nbsp;
-                                        <Button variant="link" size="xs" onClick={this.handleEditItem}>Edit</Button>
+                                            <Button variant="link" size="xs" onClick={this.handleEditItem}>Edit</Button>
                                         </td>
                                     </tr>
                                 );
                             })}
-                            {categories && (categories.length === 0) && <tr><td colSpan="4"><div className="loader-container">
+                            {users && (users.length === 0) && <tr><td colSpan="4"><div className="loader-container">
                                 <Loader type="Watch" color="#00BFFF" />
                             </div></td></tr>}
-                            {!categories && <tr><td colSpan="4">No data found..!!!</td></tr>}
+                            {!users && <tr><td colSpan="4">No data found..!!!</td></tr>}
                         </tbody>
                     </table>
                     <ModalPopup
-                        show={modal.addCategory}
+                        show={modal.addUser}
                         title={'Add New'}
-                        body={<CategoryFormPage />}
+                        body={<UserFormPage />}
                         handleHideModal={this.handleHideModal}
                     />
-                    {/*<Modal size="lg" centered show={modal.showAddCategoryModal} onHide={this.handleHideModal}>
+                    {/*<Modal size="lg" centered show={modal.showAddUserModal} onHide={this.handleHideModal}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Add New Category</Modal.Title>
+                            <Modal.Title>Add New User</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body><CategoryFormPage /></Modal.Body>
+                        <Modal.Body><UserFormPage /></Modal.Body>
                     </Modal>*/}
                 </div>
             </React.Fragment>
@@ -85,20 +87,20 @@ class ViewAllCategories extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        categories: state.categories,
+        users: state.users,
         modal: state.modal
     };
 };
 
 const mapDispatchToProps = dispatch => {
     /*return {
-        fetchAllCategories: () => dispatch(fetchAllCategories()),
+        fetchAllUsers: () => dispatch(fetchAllUsers()),
         getModalStatus: () => dispatch(getModalStatus()),
         showModal: () => dispatch(showModal('', true)),
         hideModal: () => dispatch(hideModal())
     };*/
     return bindActionCreators({
-        fetchAllCategories: fetchAllCategories,
+        fetchAllUsers: fetchAllUsers,
         getModalStatus: getModalStatus,
         showModal: showModal,
         hideModal: hideModal
@@ -108,4 +110,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ViewAllCategories);
+)(ViewAllUsers);

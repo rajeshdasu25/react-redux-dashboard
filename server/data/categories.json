@@ -1,26 +1,26 @@
 [
     {
-        "id": "1",
+        "id": 1,
         "type": "shirt",
         "label": "Shirt"
     },
     {
-        "id": "2",
+        "id": 2,
         "type": "pant",
         "label": "Pant"
     },
     {
-        "id": "3",
+        "id": 3,
         "type": "shorts",
         "label": "Shorts"
     },
     {
-        "id": "4",
+        "id": 4,
         "type": "shoes",
         "label": "Shoes"
     },
     {
-        "id": "5",
+        "id": 5,
         "type": "watches",
         "label": "Watches"
     },
@@ -28,5 +28,10 @@
         "id": 6,
         "type": "car",
         "label": "Car"
+    },
+    {
+        "id": 7,
+        "type": "bike",
+        "label": "Bike"
     }
 ]

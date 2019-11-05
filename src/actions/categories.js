@@ -43,10 +43,7 @@ export const fetchTop5Categories = () => {
     return (dispatch) => {
         return axios.get(recentCategoriesApiUrl)
             .then(response => {
-                var allItems = response.data;
-                var reverseItems = allItems.reverse();
-                var top5items = reverseItems.slice(0,5);
-                dispatch(fetchRecentCategories(top5items));
+                dispatch(fetchRecentCategories(response.data));
             })
             .catch(error => {
                 throw (error);

@@ -9,7 +9,7 @@ import LeftNav from './components/common/LeftNav';
 import Contact from './components/contact';
 import ViewAllCategories from './components/categories/viewAllCategories';
 import Dashboard from './components/dashboard';
-import Users from './components/users';
+import Users from './components/users/viewAllUsers';
 import Products from './components/products';
 
 import './App.css';

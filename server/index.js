@@ -94,6 +94,26 @@ app.get('/getAllUsers', (req, res) => {
     });
 });
 
+app.post('/addNewUser', (req, res) => {
+    fs.readFile('./data/users.json', (err, data) => {
+        if (err) throw err;
+        let users = JSON.parse(data);
+        let formData = {
+            'id': users.length + 1,
+            'username': req.body.username,
+            'password': req.body.password,
+            'first_name': req.body.first_name,
+            'last_name': req.body.last_name,
+            'email': req.body.email
+        };
+        users.push(formData);
+        fs.writeFile('./data/users.json', JSON.stringify(users, null, 4), function (err) {
+            if (err) throw err;
+            res.send(formData);
+        });
+    });
+});
+
 app.get('/getRecentUsers', (req, res) => {
     let size = req.query.size;
     fs.readFile('./data/users.json', (err, data) => {

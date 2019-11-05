@@ -1,6 +1,6 @@
 import Contact from '../components/contact';
 import Dashboard from '../components/dashboard';
-import Users from '../components/users';
+import Users from '../components/users/viewAllUsers';
 import Products from '../components/products';
 
 export const AppRoutes = [
