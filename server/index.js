@@ -31,11 +31,22 @@ function jsonReader(filePath, cb) {
 }
 
 // An api endpoint that returns a short list of items
-app.get('/getCategories', (req, res) => {
+app.get('/getAllCategories', (req, res) => {
     fs.readFile('./data/categories.json', (err, data) => {
         if (err) throw err;
         let categories = JSON.parse(data);
         res.json(categories);
+    });
+});
+
+app.get('/getRecentCategories', (req, res) => {
+    let size = req.query.size;
+    fs.readFile('./data/categories.json', (err, data) => {
+        if (err) throw err;
+        let allItems = JSON.parse(data);
+        var reverseItems = allItems.reverse();
+        var topitems = reverseItems.slice(0,size);
+        res.json(topitems);
     });
 });
 
@@ -56,7 +67,7 @@ app.post('/addCategory', (req, res) => {
     });
 });
 
-app.get('/getProducts', (req, res) => {
+app.get('/getAllProducts', (req, res) => {
     fs.readFile('./data/products.json', (err, data) => {
         if (err) throw err;
         let products = JSON.parse(data);
@@ -64,11 +75,33 @@ app.get('/getProducts', (req, res) => {
     });
 });
 
-app.get('/getUsers', (req, res) => {
+app.get('/getRecentProducts', (req, res) => {
+    let size = req.query.size;
+    fs.readFile('./data/products.json', (err, data) => {
+        if (err) throw err;
+        let allItems = JSON.parse(data);
+        var reverseItems = allItems.reverse();
+        var topitems = reverseItems.slice(0,size);
+        res.json(topitems);
+    });
+});
+
+app.get('/getAllUsers', (req, res) => {
     fs.readFile('./data/users.json', (err, data) => {
         if (err) throw err;
         let users = JSON.parse(data);
         res.json(users);
+    });
+});
+
+app.get('/getRecentUsers', (req, res) => {
+    let size = req.query.size;
+    fs.readFile('./data/users.json', (err, data) => {
+        if (err) throw err;
+        let allItems = JSON.parse(data);
+        var reverseItems = allItems.reverse();
+        var topitems = reverseItems.slice(0,size);
+        res.json(topitems);
     });
 });
 

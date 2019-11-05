@@ -11,19 +11,22 @@ import WidgetInfo from './common/WidgetInfo.js';
 import { ColumnChartConfig } from '../config/ColumChartConfig';
 // import { PieChartConfig } from '../config/PieChartConfig';
 
-import { fetchAllUsers } from '../actions/users';
-import { fetchAllProducts } from '../actions/products';
-import { fetchAllCategories } from '../actions/categories';
+import { fetchAllUsers, fetchTop5Users } from '../actions/users';
+import { fetchAllProducts, fetchTop5Products } from '../actions/products';
+import { fetchAllCategories, fetchTop5Categories } from '../actions/categories';
 
 class Dashboard extends React.Component {
     componentDidMount() {
-        this.props.fetchAllUsers();
-        this.props.fetchAllProducts();
         this.props.fetchAllCategories();
+        this.props.fetchAllProducts();
+        this.props.fetchAllUsers();
+        this.props.fetchTop5Categories();
+        this.props.fetchTop5Products();
+        this.props.fetchTop5Users();
     }
 
     render() {
-        const { categories, products, users } = this.props;
+        const { categories, products, users, recentCategories, recentProducts, recentUsers } = this.props;
 
         return (
             <React.Fragment>
@@ -55,39 +58,59 @@ class Dashboard extends React.Component {
                 <Row>
                     <Col md={4} sm={6}>
                         <Card>
-                            <Card.Header>Users</Card.Header>
+                            <Card.Header><h5>Recent Users</h5></Card.Header>
                             <Card.Body>
-                                {users && (users.length > 0) && users.map((user, index) => {
+                                {recentUsers && (recentUsers.length > 0) && recentUsers.map((user) => {
                                     return (
                                         <div key={user.id}>
-                                            <div>{user.username}</div>
+                                            <div>{`${user.first_name} ${user.last_name}`}</div>
                                         </div>
                                     );
                                 })}
-                                {users && (users.length === 0) && <div className="loader-container">
+                                {recentUsers && (recentUsers.length === 0) && <div className="loader-container">
                                     <Loader type="Watch" color="#00BFFF" />
                                 </div>}
                             </Card.Body>
+                            <Card.Footer className="text-right" ><Link to="/users">View all &raquo;</Link></Card.Footer>
                         </Card>
                     </Col>
                     <Col md={4} sm={6}>
                         <Card>
-                            <Card.Header>Categories</Card.Header>
+                            <Card.Header><h5>Recent Categories</h5></Card.Header>
                             <Card.Body>
-                                {categories && (categories.length > 0) && categories.map((category) => {
+                                {recentCategories && (recentCategories.length > 0) && recentCategories.map((category) => {
                                     return (
                                         <div key={category.id}>
                                             <div>{category.label}</div>
                                         </div>
                                     );
                                 })}
-                                {categories && (categories.length === 0) && <div className="loader-container">
+                                {recentCategories && (recentCategories.length === 0) && <div className="loader-container">
                                     <Loader type="Watch" color="#00BFFF" />
                                 </div>}
                             </Card.Body>
+                            <Card.Footer className="text-right" ><Link to="/categories">View all &raquo;</Link></Card.Footer>
                         </Card>
                     </Col>
                     <Col md={4} sm={6}>
+                        <Card>
+                            <Card.Header><h5>Recent Products</h5></Card.Header>
+                            <Card.Body>
+                                {recentProducts && (recentProducts.length > 0) && recentProducts.map((topProduct) => {
+                                    return (
+                                        <div key={topProduct.id}>
+                                            <div>{topProduct.title}</div>
+                                        </div>
+                                    );
+                                })}
+                                {recentProducts && (recentProducts.length === 0) && <div className="loader-container">
+                                    <Loader type="Watch" color="#00BFFF" />
+                                </div>}
+                            </Card.Body>
+                            <Card.Footer className="text-right" ><Link to="/products">View all &raquo;</Link></Card.Footer>
+                        </Card>
+                    </Col>
+                    {/*<Col md={4} sm={6}>
                         <Card>
                             <Card.Header>Products</Card.Header>
                             <Card.Body>
@@ -103,7 +126,7 @@ class Dashboard extends React.Component {
                                 </div>}
                             </Card.Body>
                         </Card>
-                    </Col>
+                    </Col>*/}
                 </Row>
                 {/*<Row>
 <Col md={4} sm={6}>
@@ -137,17 +160,24 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        categories: state.categories,
         users: state.users,
         products: state.products,
-        categories: state.categories
+        recentCategories: state.recentCategories,
+        recentProducts: state.recentProducts,
+        recentUsers: state.recentUsers
+        
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllUsers: () => dispatch(fetchAllUsers()),
+        fetchAllCategories: () => dispatch(fetchAllCategories()),
         fetchAllProducts: () => dispatch(fetchAllProducts()),
-        fetchAllCategories: () => dispatch(fetchAllCategories())
+        fetchAllUsers: () => dispatch(fetchAllUsers()),
+        fetchTop5Categories: () => dispatch(fetchTop5Categories()),
+        fetchTop5Products: () => dispatch(fetchTop5Products()),
+        fetchTop5Users: () => dispatch(fetchTop5Users())
     };
 };
 
