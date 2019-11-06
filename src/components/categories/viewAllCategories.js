@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
 import { Button/*, Modal*/ } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import ModalPopup from '../common/ModalPopup';
 import CategoryFormPage from './categoryFormPage';
@@ -53,8 +54,8 @@ class ViewAllCategories extends React.Component {
                                         <td>{category.type}</td>
                                         <td>{category.label}</td>
                                         <td>
-                                            <Button variant="link" size="xs" onClick={this.handleViewItem}>View</Button>&nbsp;
-                                        <Button variant="link" size="xs" onClick={this.handleEditItem}>Edit</Button>
+                                            <Link to={`/category/${category.id}`}><Button variant="link" size="xs"/* onClick={this.handleViewItem}*/>View</Button></Link>&nbsp;
+                                            <Button variant="link" size="xs" onClick={this.handleEditItem}>Edit</Button>
                                         </td>
                                     </tr>
                                 );

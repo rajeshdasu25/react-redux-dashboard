@@ -24,7 +24,7 @@ function jsonReader(filePath, cb) {
         try {
             const object = JSON.parse(fileData)
             return cb && cb(null, object)
-        } catch(err) {
+        } catch (err) {
             return cb && cb(err)
         }
     })
@@ -38,6 +38,15 @@ app.get('/getAllCategories', (req, res) => {
         res.json(categories);
     });
 });
+app.get('/getCategory', (req, res) => {
+    let itemId = req.query.id;
+    fs.readFile('./data/categories.json', (err, data) => {
+        if (err) throw err;
+        let categories = JSON.parse(data);
+        let category = categories.find(item => item.id == itemId );
+        res.json(category);
+    });
+});
 
 app.get('/getRecentCategories', (req, res) => {
     let size = req.query.size;
@@ -45,7 +54,7 @@ app.get('/getRecentCategories', (req, res) => {
         if (err) throw err;
         let allItems = JSON.parse(data);
         var reverseItems = allItems.reverse();
-        var topitems = reverseItems.slice(0,size);
+        var topitems = reverseItems.slice(0, size);
         res.json(topitems);
     });
 });
@@ -81,7 +90,7 @@ app.get('/getRecentProducts', (req, res) => {
         if (err) throw err;
         let allItems = JSON.parse(data);
         var reverseItems = allItems.reverse();
-        var topitems = reverseItems.slice(0,size);
+        var topitems = reverseItems.slice(0, size);
         res.json(topitems);
     });
 });
@@ -120,7 +129,7 @@ app.get('/getRecentUsers', (req, res) => {
         if (err) throw err;
         let allItems = JSON.parse(data);
         var reverseItems = allItems.reverse();
-        var topitems = reverseItems.slice(0,size);
+        var topitems = reverseItems.slice(0, size);
         res.json(topitems);
     });
 });

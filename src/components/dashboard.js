@@ -81,7 +81,7 @@ class Dashboard extends React.Component {
                                 {recentCategories && (recentCategories.length > 0) && recentCategories.map((category) => {
                                     return (
                                         <div key={category.id}>
-                                            <div>{category.label}</div>
+                                            <Link to={`/category/${category.id}`}>{category.label}</Link>
                                         </div>
                                     );
                                 })}

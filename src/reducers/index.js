@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import modal from './modalReducer';
+import category from './indCategoryReducer';
 import categories from './categoryReducer';
 import products from './productReducer';
 import users from './userReducer';
@@ -9,6 +10,7 @@ import recentProducts from './recentProductsReducer';
 import recentUsers from './recentUsersReducer';
 
 const rootReducer = combineReducers({
+    category: category,
     categories: categories,
     products: products,
     users: users,
