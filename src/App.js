@@ -8,7 +8,8 @@ import LeftNav from './components/common/LeftNav';
 
 import Contact from './components/contact';
 import ViewAllCategories from './components/categories/viewAllCategories';
-import ViewIndCategories from './components/categories/viewIndCategory';
+import ViewIndCategory from './components/categories/viewIndCategory';
+import ViewIndProduct from './components/products/viewIndProduct';
 import Dashboard from './components/dashboard';
 import Users from './components/users/viewAllUsers';
 import Products from './components/products';
@@ -30,8 +31,9 @@ function App() {
               <Route path='/users' component={Users} />
               <Route path='/contact' component={Contact} />
               <Route path='/categories' component={ViewAllCategories} />
-              <Route path='/category/:id' component={ViewIndCategories} />
+              <Route path='/category/:id' component={ViewIndCategory} />
               <Route path='/products' component={Products} />
+              <Route path='/product/:id' component={ViewIndProduct} />
             </Switch>
           </div>
         </div>

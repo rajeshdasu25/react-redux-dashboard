@@ -33,5 +33,10 @@
         "id": 7,
         "type": "bike",
         "label": "Bike"
+    },
+    {
+        "id": 8,
+        "type": "home",
+        "label": "Home"
     }
 ]

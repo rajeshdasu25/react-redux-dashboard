@@ -38,6 +38,7 @@ app.get('/getAllCategories', (req, res) => {
         res.json(categories);
     });
 });
+
 app.get('/getCategory', (req, res) => {
     let itemId = req.query.id;
     fs.readFile('./data/categories.json', (err, data) => {
@@ -81,6 +82,16 @@ app.get('/getAllProducts', (req, res) => {
         if (err) throw err;
         let products = JSON.parse(data);
         res.json(products);
+    });
+});
+
+app.get('/getProduct', (req, res) => {
+    let itemId = req.query.id;
+    fs.readFile('./data/products.json', (err, data) => {
+        if (err) throw err;
+        let products = JSON.parse(data);
+        let product = products.find(item => item.id == itemId );
+        res.json(product);
     });
 });
 

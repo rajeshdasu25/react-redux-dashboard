@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
     CellMeasurer,
     CellMeasurerCache,
@@ -41,12 +42,13 @@ class Products extends React.Component {
                     parent={parent}
                 >
                     <div className="card" style={style}>
-                        <div className="card-header"><h5 className="card-header-text">{datum.title}</h5></div>
-                        <div className="card-body">
-                            <img src={'https://via.placeholder.com/150'} alt="Placeholder" />
-                            <div className="card-title">{`${datum.currencyFormat}${datum.price}`}</div>
-                            {datum.description && <div className="card-content">{datum.description}</div>}
-                        </div>
+                        <Link to={`/product/${datum.id}`}>
+                            <div className="card-header"><h5 className="card-header-text">{datum.title}</h5></div>
+                            <div className="card-body">
+                                <img src={'https://via.placeholder.com/150'} alt="Placeholder" />
+                                <div className="card-title">{`${datum.currencyFormat}${datum.price}`}</div>
+                            </div>
+                        </Link>
                     </div>
                 </CellMeasurer>
             )
