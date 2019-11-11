@@ -94,5 +94,13 @@
         "first_name": "fname 12",
         "last_name": "lname 12",
         "email": "user12@mail.com"
+    },
+    {
+        "id": 13,
+        "username": "user13",
+        "password": "password",
+        "first_name": "fname 13",
+        "last_name": "lname 13",
+        "email": "user13@mail.com"
     }
 ]

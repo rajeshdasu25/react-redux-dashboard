@@ -31,27 +31,36 @@ function jsonReader(filePath, cb) {
 }
 
 // An api endpoint that returns a short list of items
-app.get('/getAllCategories', (req, res) => {
-    fs.readFile('./data/categories.json', (err, data) => {
+app.get('/getAllItems', (req, res) => {
+    let itemType = req.query.type;
+    let jsonUrl = './data/'+itemType+'.json';
+
+    fs.readFile(jsonUrl, (err, data) => {
         if (err) throw err;
-        let categories = JSON.parse(data);
-        res.json(categories);
+        let items = JSON.parse(data);
+        res.json(items);
     });
 });
 
-app.get('/getCategory', (req, res) => {
+app.get('/getAnItem', (req, res) => {
+    let itemType = req.query.type;
     let itemId = req.query.id;
-    fs.readFile('./data/categories.json', (err, data) => {
+    let jsonUrl = './data/'+itemType+'.json';
+
+    fs.readFile(jsonUrl, (err, data) => {
         if (err) throw err;
-        let categories = JSON.parse(data);
-        let category = categories.find(item => item.id == itemId );
-        res.json(category);
+        let items = JSON.parse(data);
+        let resultItem = items.find(item => item.id == itemId );
+        res.json(resultItem);
     });
 });
 
-app.get('/getRecentCategories', (req, res) => {
+app.get('/getRecentItems', (req, res) => {
+    let type = req.query.type;
     let size = req.query.size;
-    fs.readFile('./data/categories.json', (err, data) => {
+    let jsonUrl = './data/'+type+'.json';
+
+    fs.readFile(jsonUrl, (err, data) => {
         if (err) throw err;
         let allItems = JSON.parse(data);
         var reverseItems = allItems.reverse();
@@ -60,88 +69,38 @@ app.get('/getRecentCategories', (req, res) => {
     });
 });
 
-app.post('/addCategory', (req, res) => {
-    fs.readFile('./data/categories.json', (err, data) => {
+app.post('/addNewItem', (req, res) => {
+    let itemType = req.query.type;
+    let jsonUrl = './data/'+itemType+'.json';
+    let formData = {};
+
+    fs.readFile(jsonUrl, (err, data) => {
         if (err) throw err;
-        let categories = JSON.parse(data);
-        let formData = {
-            'id': categories.length + 1,
-            'type': req.body.type,
-            'label': req.body.label
-        };
-        categories.push(formData);
-        fs.writeFile('./data/categories.json', JSON.stringify(categories, null, 4), function (err) {
+        let items = JSON.parse(data);        
+        switch(itemType) {
+            case 'categories':
+                formData = {
+                    'id': items.length + 1,
+                    'type': req.body.type,
+                    'label': req.body.label
+                };
+                break;
+            case 'users':
+                formData = {
+                    'id': items.length + 1,
+                    'username': req.body.username,
+                    'password': req.body.password,
+                    'first_name': req.body.first_name,
+                    'last_name': req.body.last_name,
+                    'email': req.body.email
+                };
+                break;
+        }
+        items.push(formData);
+        fs.writeFile(jsonUrl, JSON.stringify(items, null, 4), function (err) {
             if (err) throw err;
             res.send(formData);
         });
-    });
-});
-
-app.get('/getAllProducts', (req, res) => {
-    fs.readFile('./data/products.json', (err, data) => {
-        if (err) throw err;
-        let products = JSON.parse(data);
-        res.json(products);
-    });
-});
-
-app.get('/getProduct', (req, res) => {
-    let itemId = req.query.id;
-    fs.readFile('./data/products.json', (err, data) => {
-        if (err) throw err;
-        let products = JSON.parse(data);
-        let product = products.find(item => item.id == itemId );
-        res.json(product);
-    });
-});
-
-app.get('/getRecentProducts', (req, res) => {
-    let size = req.query.size;
-    fs.readFile('./data/products.json', (err, data) => {
-        if (err) throw err;
-        let allItems = JSON.parse(data);
-        var reverseItems = allItems.reverse();
-        var topitems = reverseItems.slice(0, size);
-        res.json(topitems);
-    });
-});
-
-app.get('/getAllUsers', (req, res) => {
-    fs.readFile('./data/users.json', (err, data) => {
-        if (err) throw err;
-        let users = JSON.parse(data);
-        res.json(users);
-    });
-});
-
-app.post('/addNewUser', (req, res) => {
-    fs.readFile('./data/users.json', (err, data) => {
-        if (err) throw err;
-        let users = JSON.parse(data);
-        let formData = {
-            'id': users.length + 1,
-            'username': req.body.username,
-            'password': req.body.password,
-            'first_name': req.body.first_name,
-            'last_name': req.body.last_name,
-            'email': req.body.email
-        };
-        users.push(formData);
-        fs.writeFile('./data/users.json', JSON.stringify(users, null, 4), function (err) {
-            if (err) throw err;
-            res.send(formData);
-        });
-    });
-});
-
-app.get('/getRecentUsers', (req, res) => {
-    let size = req.query.size;
-    fs.readFile('./data/users.json', (err, data) => {
-        if (err) throw err;
-        let allItems = JSON.parse(data);
-        var reverseItems = allItems.reverse();
-        var topitems = reverseItems.slice(0, size);
-        res.json(topitems);
     });
 });
 

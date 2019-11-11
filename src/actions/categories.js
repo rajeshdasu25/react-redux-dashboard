@@ -2,10 +2,12 @@ import { FETCH_IND_CATEGORY, FETCH_ALL_CATEGORIES, FETCH_RECENT_CATEGORIES, ADD_
 import { setStatus } from './modal';
 import axios from 'axios';
 
-const allCategoriesApiUrl = 'http://localhost:5000/getAllCategories';//'https://private-205f4-rajeshdasu.apiary-mock.com/categories';
-const recentCategoriesApiUrl = 'http://localhost:5000/getRecentCategories?size=5';
+const getAllItemsApiUrl = 'http://localhost:5000/getAllItems';
+const getAnItemApiUrl = 'http://localhost:5000/getAnItem';
+const getRecentItemsApiUrl = 'http://localhost:5000/getRecentItems';
+const addNewItemApiUrl = 'http://localhost:5000/addNewItem';
+//const allCategoriesApiUrl = 'https://private-205f4-rajeshdasu.apiary-mock.com/categories';
 const addCategoryApiUrl = 'http://localhost:5000/addCategory';
-const indCategoryApiUrl = 'http://localhost:5000/getCategory';
 
 export const fetchCategories = (categories) => {
     return {
@@ -28,7 +30,7 @@ export const fetchRecentCategories = (recentCategories) => {
     }
 };
 
-export const addCategory = (category) => { 
+export const addCategory = (category) => {
     return {
         type: ADD_NEW_CATEGORY,
         category
@@ -37,7 +39,8 @@ export const addCategory = (category) => {
 
 export const fetchAllCategories = () => {
     return (dispatch) => {
-        return axios.get(allCategoriesApiUrl)
+        let url = getAllItemsApiUrl + '?type=categories';
+        return axios.get(url)
             .then(response => {
                 dispatch(fetchCategories(response.data));
             })
@@ -49,7 +52,7 @@ export const fetchAllCategories = () => {
 
 export const fetchACategory = (catId) => {
     return (dispatch) => {
-        const url = indCategoryApiUrl+'?id='+catId;
+        const url = getAnItemApiUrl + '?type=categories&id=' + catId;
         return axios.get(url)
             .then(response => {
                 dispatch(fetchCategory(response.data));
@@ -62,7 +65,8 @@ export const fetchACategory = (catId) => {
 
 export const fetchTop5Categories = () => {
     return (dispatch) => {
-        return axios.get(recentCategoriesApiUrl)
+        let url = getRecentItemsApiUrl + '?type=categories&size=5';
+        return axios.get(url)
             .then(response => {
                 dispatch(fetchRecentCategories(response.data));
             })
@@ -74,9 +78,10 @@ export const fetchTop5Categories = () => {
 
 export const addNewCategory = (formData) => {
     return (dispatch) => {
-        return axios.post(addCategoryApiUrl, formData)
-            .then(response => { 
-                if(response.status === 200) {
+        let url = addNewItemApiUrl + '?type=categories';
+        return axios.post(url, formData)
+            .then(response => {
+                if (response.status === 200) {
                     dispatch(setStatus(false));
                 }
             })

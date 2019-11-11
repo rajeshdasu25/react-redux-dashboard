@@ -1,9 +1,10 @@
 import { FETCH_IND_PRODUCT, FETCH_ALL_PRODUCTS, FETCH_RECENT_PRODUCTS } from './types';
 import axios from 'axios';
 
-const allProductsApiUrl = 'http://localhost:5000/getAllProducts';//'https://private-205f4-rajeshdasu.apiary-mock.com/products';
-const recentProductsApiUrl = 'http://localhost:5000/getRecentProducts?size=5';
-const indProductApiUrl = 'http://localhost:5000/getProduct';
+const getAllItemsApiUrl = 'http://localhost:5000/getAllItems';
+const getAnItemApiUrl = 'http://localhost:5000/getAnItem';
+const getRecentItemsApiUrl = 'http://localhost:5000/getRecentItems';
+//const allProductsApiUrl = 'https://private-205f4-rajeshdasu.apiary-mock.com/products';
 
 export const fetchProducts = (products) => {
     return {
@@ -28,7 +29,8 @@ export const fetchRecentProducts = (topProducts) => {
 
 export const fetchAllProducts = () => {
     return (dispatch) => {
-        return axios.get(allProductsApiUrl)
+        let url = getAllItemsApiUrl + '?type=products';
+        return axios.get(url)
             .then(response => {
                 dispatch(fetchProducts(response.data));
             })
@@ -40,7 +42,8 @@ export const fetchAllProducts = () => {
 
 export const fetchAProduct = (prodId) => {
     return (dispatch) => {
-        const url = indProductApiUrl+'?id='+prodId;
+        const url = getAnItemApiUrl + '?type=products&id=' + prodId;
+        //const url = indProductApiUrl+'?id='+prodId;
         return axios.get(url)
             .then(response => {
                 dispatch(fetchProduct(response.data));
@@ -53,7 +56,8 @@ export const fetchAProduct = (prodId) => {
 
 export const fetchTop5Products = () => {
     return (dispatch) => {
-        return axios.get(recentProductsApiUrl)
+        let url = getRecentItemsApiUrl + '?type=products&size=5';
+        return axios.get(url)
             .then(response => {
                 dispatch(fetchRecentProducts(response.data));
             })

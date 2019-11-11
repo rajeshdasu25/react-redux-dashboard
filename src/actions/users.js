@@ -2,9 +2,11 @@ import { ADD_NEW_USER, FETCH_ALL_USERS, FETCH_RECENT_USERS } from './types';
 import { setStatus } from './modal';
 import axios from 'axios';
 
-//const usersApiUrl = 'http://private-205f4-rajeshdasu.apiary-mock.com/users';//'http://localhost:5000/getUsers';
-const allUsersApiUrl = 'http://localhost:5000/getAllUsers';//'http://private-205f4-rajeshdasu.apiary-mock.com/users';
-const recentUsersApiUrl = 'http://localhost:5000/getRecentUsers?size=5';
+const getAllItemsApiUrl = 'http://localhost:5000/getAllItems';
+//const getAnItemApiUrl = 'http://localhost:5000/getAnItem';
+const addNewItemApiUrl = 'http://localhost:5000/addNewItem';
+const getRecentItemsApiUrl = 'http://localhost:5000/getRecentItems';
+//const usersApiUrl = 'http://private-205f4-rajeshdasu.apiary-mock.com/users';
 const addUserApiUrl = 'http://localhost:5000/addNewUser';
 
 export const fetchUsers = (users) => {
@@ -30,7 +32,8 @@ export const addUser = (user) => {
 
 export const fetchAllUsers = () => {
     return (dispatch) => {
-        return axios.get(allUsersApiUrl)
+        let url = getAllItemsApiUrl + '?type=users';
+        return axios.get(url)
             .then(response => {
                 dispatch(fetchUsers(response.data));
             })
@@ -42,7 +45,8 @@ export const fetchAllUsers = () => {
 
 export const fetchTop5Users = () => {
     return (dispatch) => {
-        return axios.get(recentUsersApiUrl)
+        let url = getRecentItemsApiUrl + '?type=users&size=5';
+        return axios.get(url)
             .then(response => {
                 dispatch(fetchRecentUsers(response.data));
             })
@@ -54,7 +58,8 @@ export const fetchTop5Users = () => {
 
 export const addNewUser = (formData) => {
     return (dispatch) => {
-        return axios.post(addUserApiUrl, formData)
+        let url = addNewItemApiUrl + '?type=users';
+        return axios.post(url, formData)
             .then(response => { 
                 if(response.status === 200) {
                     dispatch(setStatus(false));
