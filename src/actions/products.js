@@ -1,10 +1,6 @@
 import { FETCH_IND_PRODUCT, FETCH_ALL_PRODUCTS, FETCH_RECENT_PRODUCTS } from './types';
 import axios from 'axios';
-
-const getAllItemsApiUrl = 'http://localhost:5000/getAllItems';
-const getAnItemApiUrl = 'http://localhost:5000/getAnItem';
-const getRecentItemsApiUrl = 'http://localhost:5000/getRecentItems';
-//const allProductsApiUrl = 'https://private-205f4-rajeshdasu.apiary-mock.com/products';
+import * as appConstants from '../config/constants';
 
 export const fetchProducts = (products) => {
     return {
@@ -29,7 +25,7 @@ export const fetchRecentProducts = (topProducts) => {
 
 export const fetchAllProducts = () => {
     return (dispatch) => {
-        let url = getAllItemsApiUrl + '?type=products';
+        let url = appConstants.GET_ALL_ITEMS_URL + '?type=products';
         return axios.get(url)
             .then(response => {
                 dispatch(fetchProducts(response.data));
@@ -42,8 +38,7 @@ export const fetchAllProducts = () => {
 
 export const fetchAProduct = (prodId) => {
     return (dispatch) => {
-        const url = getAnItemApiUrl + '?type=products&id=' + prodId;
-        //const url = indProductApiUrl+'?id='+prodId;
+        const url = appConstants.GET_AN_ITEM_URL + '?type=products&id=' + prodId;
         return axios.get(url)
             .then(response => {
                 dispatch(fetchProduct(response.data));
@@ -56,7 +51,7 @@ export const fetchAProduct = (prodId) => {
 
 export const fetchTop5Products = () => {
     return (dispatch) => {
-        let url = getRecentItemsApiUrl + '?type=products&size=5';
+        let url = appConstants.GET_RECENT_ITEMS_URL + '?type=products&size=5';
         return axios.get(url)
             .then(response => {
                 dispatch(fetchRecentProducts(response.data));

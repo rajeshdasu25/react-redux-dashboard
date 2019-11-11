@@ -1,13 +1,7 @@
 import { FETCH_IND_CATEGORY, FETCH_ALL_CATEGORIES, FETCH_RECENT_CATEGORIES, ADD_NEW_CATEGORY } from './types';
 import { setStatus } from './modal';
 import axios from 'axios';
-
-const getAllItemsApiUrl = 'http://localhost:5000/getAllItems';
-const getAnItemApiUrl = 'http://localhost:5000/getAnItem';
-const getRecentItemsApiUrl = 'http://localhost:5000/getRecentItems';
-const addNewItemApiUrl = 'http://localhost:5000/addNewItem';
-//const allCategoriesApiUrl = 'https://private-205f4-rajeshdasu.apiary-mock.com/categories';
-const addCategoryApiUrl = 'http://localhost:5000/addCategory';
+import * as appConstants from '../config/constants';
 
 export const fetchCategories = (categories) => {
     return {
@@ -39,7 +33,7 @@ export const addCategory = (category) => {
 
 export const fetchAllCategories = () => {
     return (dispatch) => {
-        let url = getAllItemsApiUrl + '?type=categories';
+        let url = appConstants.GET_ALL_ITEMS_URL + '?type=categories';
         return axios.get(url)
             .then(response => {
                 dispatch(fetchCategories(response.data));
@@ -52,7 +46,7 @@ export const fetchAllCategories = () => {
 
 export const fetchACategory = (catId) => {
     return (dispatch) => {
-        const url = getAnItemApiUrl + '?type=categories&id=' + catId;
+        const url = appConstants.GET_AN_ITEM_URL + '?type=categories&id=' + catId;
         return axios.get(url)
             .then(response => {
                 dispatch(fetchCategory(response.data));
@@ -65,7 +59,7 @@ export const fetchACategory = (catId) => {
 
 export const fetchTop5Categories = () => {
     return (dispatch) => {
-        let url = getRecentItemsApiUrl + '?type=categories&size=5';
+        let url = appConstants.GET_RECENT_ITEMS_URL + '?type=categories&size=5';
         return axios.get(url)
             .then(response => {
                 dispatch(fetchRecentCategories(response.data));
@@ -78,7 +72,7 @@ export const fetchTop5Categories = () => {
 
 export const addNewCategory = (formData) => {
     return (dispatch) => {
-        let url = addNewItemApiUrl + '?type=categories';
+        let url = appConstants.ADD_NEW_ITEM_URL + '?type=categories';
         return axios.post(url, formData)
             .then(response => {
                 if (response.status === 200) {

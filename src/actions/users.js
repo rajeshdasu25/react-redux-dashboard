@@ -1,13 +1,7 @@
 import { ADD_NEW_USER, FETCH_ALL_USERS, FETCH_RECENT_USERS } from './types';
 import { setStatus } from './modal';
 import axios from 'axios';
-
-const getAllItemsApiUrl = 'http://localhost:5000/getAllItems';
-//const getAnItemApiUrl = 'http://localhost:5000/getAnItem';
-const addNewItemApiUrl = 'http://localhost:5000/addNewItem';
-const getRecentItemsApiUrl = 'http://localhost:5000/getRecentItems';
-//const usersApiUrl = 'http://private-205f4-rajeshdasu.apiary-mock.com/users';
-const addUserApiUrl = 'http://localhost:5000/addNewUser';
+import * as appConstants from '../config/constants';
 
 export const fetchUsers = (users) => {
     return {
@@ -32,7 +26,7 @@ export const addUser = (user) => {
 
 export const fetchAllUsers = () => {
     return (dispatch) => {
-        let url = getAllItemsApiUrl + '?type=users';
+        let url = appConstants.GET_ALL_ITEMS_URL + '?type=users';
         return axios.get(url)
             .then(response => {
                 dispatch(fetchUsers(response.data));
@@ -45,7 +39,7 @@ export const fetchAllUsers = () => {
 
 export const fetchTop5Users = () => {
     return (dispatch) => {
-        let url = getRecentItemsApiUrl + '?type=users&size=5';
+        let url = appConstants.GET_RECENT_ITEMS_URL + '?type=users&size=5';
         return axios.get(url)
             .then(response => {
                 dispatch(fetchRecentUsers(response.data));
@@ -58,7 +52,7 @@ export const fetchTop5Users = () => {
 
 export const addNewUser = (formData) => {
     return (dispatch) => {
-        let url = addNewItemApiUrl + '?type=users';
+        let url = appConstants.ADD_NEW_ITEM_URL + '?type=users';
         return axios.post(url, formData)
             .then(response => { 
                 if(response.status === 200) {
