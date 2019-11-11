@@ -9,6 +9,7 @@ import users from './userReducer';
 import recentCategories from './recentCategoriesReducer';
 import recentProducts from './recentProductsReducer';
 import recentUsers from './recentUsersReducer';
+import allItemCategories from './allItemsReducer';
 
 const rootReducer = combineReducers({
     category: category,
@@ -20,7 +21,17 @@ const rootReducer = combineReducers({
     form: formReducer,
     recentCategories: recentCategories,
     recentProducts: recentProducts,
-    recentUsers: recentUsers
+    recentUsers: recentUsers,
+    allItems: allItemCategories,
+    anItem: {
+        category: category,
+        product: product
+    },
+    recentItems: {
+        categories: recentCategories,
+        products: recentProducts,
+        users: recentUsers
+    }
 });
 
 export default rootReducer;

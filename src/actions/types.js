@@ -1,6 +1,11 @@
 export const GET_MODAL_STATUS = 'GET_MODAL_STATUS';
 export const SET_MODAL_STATUS = 'SET_MODAL_STATUS';
 
+export const ADD_NEW_ITEM = 'ADD_NEW_ITEM';
+export const FETCH_AN_ITEM = 'FETCH_AN_ITEM';
+export const FETCH_ALL_ITEMS = 'FETCH_ALL_ITEMS';
+export const FETCH_RECENT_ITEMS = 'FETCH_RECENT_ITEMS';
+
 export const ADD_NEW_USER = 'ADD_NEW_USER';
 export const FETCH_ALL_USERS = 'FETCH_ALL_USERS';
 export const FETCH_RECENT_USERS = 'FETCH_RECENT_USERS';

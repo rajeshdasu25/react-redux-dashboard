@@ -14,9 +14,11 @@ import { ColumnChartConfig } from '../config/ColumChartConfig';
 import { fetchAllUsers, fetchTop5Users } from '../actions/users';
 import { fetchAllProducts, fetchTop5Products } from '../actions/products';
 import { fetchAllCategories, fetchTop5Categories } from '../actions/categories';
+import { fetchAllItems, fetchTop5Items } from '../actions/items';
 
 class Dashboard extends React.Component {
     componentDidMount() {
+        this.props.fetchAllItems();
         this.props.fetchAllCategories();
         this.props.fetchAllProducts();
         this.props.fetchAllUsers();
@@ -26,7 +28,8 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        const { categories, products, users, recentCategories, recentProducts, recentUsers } = this.props;
+        const { allItems, categories, products, users, recentCategories, recentProducts, recentUsers } = this.props;
+        console.log('allItems: ', this.props);
 
         return (
             <React.Fragment>
@@ -160,18 +163,19 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        allItems: state.allItems,
         categories: state.categories,
         users: state.users,
         products: state.products,
         recentCategories: state.recentCategories,
         recentProducts: state.recentProducts,
-        recentUsers: state.recentUsers
-        
+        recentUsers: state.recentUsers        
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        fetchAllItems: () => dispatch(fetchAllItems()),
         fetchAllCategories: () => dispatch(fetchAllCategories()),
         fetchAllProducts: () => dispatch(fetchAllProducts()),
         fetchAllUsers: () => dispatch(fetchAllUsers()),

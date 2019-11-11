@@ -29,7 +29,7 @@ class ViewAllCategories extends React.Component {
         this.props.showModal(true);
     }
     render() { 
-        const { categories, modal } = this.props;
+        const { categories, modal } = this.props; console.log('props: ', this.props);
         return (
             <React.Fragment>
                 <Helmet>
