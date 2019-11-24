@@ -8,6 +8,8 @@ import Loader from 'react-loader-spinner';
 
 import CardBox from './common/CardBox.js';
 import WidgetInfo from './common/WidgetInfo.js';
+import IntroVideo from './common/IntroVideo.js';
+import GoogleMap from './common/GoogleMap.js';
 import { ColumnChartConfig } from '../config/ColumChartConfig';
 // import { PieChartConfig } from '../config/PieChartConfig';
 
@@ -25,6 +27,21 @@ class Dashboard extends React.Component {
         this.props.fetchTop5Categories();
         this.props.fetchTop5Products();
         this.props.fetchTop5Users();
+
+        const promises = Promise.all([
+            this.props.fetchAllItems(),
+            this.props.fetchAllCategories(),
+            this.props.fetchAllProducts(),
+            this.props.fetchAllUsers(),
+            this.props.fetchTop5Categories(),
+            this.props.fetchTop5Products(),
+            this.props.fetchTop5Users()
+        ]);
+        promises
+            /*.then((results) =>
+                Promise.all(results.map(r => r.text()))
+            )*/
+            .then((res1, res2, res3, res4, res5, res6, res7) => console.log('results: ', res1, res2, res3, res4, res5, res6, res7))
     }
 
     render() {
@@ -131,18 +148,25 @@ class Dashboard extends React.Component {
                         </Card>
                     </Col>*/}
                 </Row>
+                <Row>
+                    <Col md={6} sm={6} xs={12}>
+                        <Card>
+                            <Card.Header><h5>Intro Video</h5></Card.Header>
+                            <Card.Body>
+                                <IntroVideo />
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col md={6} sm={6} xs={12}>
+                        <Card>
+                            <Card.Header><h5>Location</h5></Card.Header>
+                            <Card.Body>
+                                <GoogleMap />
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
                 {/*<Row>
-<Col md={4} sm={6}>
-<CardBox theme="primary" />
-</Col>
-<Col md={4} sm={6}>
-<CardBox theme="secondary" />
-</Col>
-<Col md={4} sm={6}>
-<CardBox theme="success" />
-</Col>
-</Row> 
-<Row>
 <Col md={3} sm={6}>
 <CardBox theme="danger" />
 </Col>
@@ -169,7 +193,7 @@ const mapStateToProps = state => {
         products: state.products,
         recentCategories: state.recentCategories,
         recentProducts: state.recentProducts,
-        recentUsers: state.recentUsers        
+        recentUsers: state.recentUsers
     };
 };
 

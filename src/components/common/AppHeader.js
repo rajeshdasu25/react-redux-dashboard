@@ -5,7 +5,7 @@ function AppHeader() {
     return (
         <header>
             <Navbar bg="primary" expand="lg">
-                <Navbar.Brand href="/">React</Navbar.Brand>
+                <Navbar.Brand href="/">React Dashboard</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">

@@ -61,10 +61,10 @@ class ViewAllUsers extends React.Component {
                                     </tr>
                                 );
                             })}
-                            {users && (users.length === 0) && <tr><td colSpan="4"><div className="loader-container">
+                            {users && (users.length === 0) && <tr><td colSpan="5"><div className="loader-container">
                                 <Loader type="Watch" color="#00BFFF" />
                             </div></td></tr>}
-                            {!users && <tr><td colSpan="4">No data found..!!!</td></tr>}
+                            {!users && <tr><td colSpan="5">No data found..!!!</td></tr>}
                         </tbody>
                     </table>
                     <ModalPopup
