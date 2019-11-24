@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Card, Row, Col, Form, FormControl, Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMobile, faMailBulk, faAddressBook } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faLinkedin, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 //import GoogleMap from './common/GoogleMap.js';
+import { addNewQuery } from '../actions/queries';
 
 class Contact extends React.Component {
 
@@ -20,16 +22,20 @@ class Contact extends React.Component {
         fullName: null,
         email: null,
         comments: null
+      },
+      message: {
+        success: null,
+        failure: null
       }
     };
   }
 
-  handleInputChange = event => {
+  handleInputChange = event => { 
     this.setState({ query: { ...this.state.query, [event.target.id]: event.target.value} });
   }
 
   handleSubmit = event => {
-    const { query } = this.state;
+    const { query, message } = this.state;
     if (query.fullName === '') {
       this.setState({ error: { fullName: 'Please enter your Name..!!!'} });
     } else if (query.email === '') {
@@ -37,14 +43,19 @@ class Contact extends React.Component {
     } else if (query.comments === '') {
       this.setState({ error: { comments: 'Please enter your Query..!!!'} });
     } else {
-      //send the values to the backend
-      //also reset both nameError and ageError here
+      this.setState({ error: {
+        fullName: null,
+        email: null,
+        comments: null
+      }});
+      console.log('state: ', query);
+      this.props.addNewQuery(query, message);
     }
     event.preventDefault();
   };
 
   render() {
-    const { query, error } = this.state;
+    const { query, error, message } = this.state;
     
     return (
       <React.Fragment>
@@ -64,6 +75,12 @@ class Contact extends React.Component {
               <Card.Header><h5>Get in Touch</h5></Card.Header>
               <Card.Body>
                 <Form onSubmit={this.handleSubmit}>
+                  <Form.Group as={Row} controlId="messageText">
+                    <Col sm={10}>
+                      {message.success && <Form.Text className="text-alert">{message.success}</Form.Text>}
+                      {message.failure && <Form.Text className="text-danger">{message.failure}</Form.Text>}
+                    </Col>
+                  </Form.Group>
                   <Form.Group as={Row} controlId="fullName">
                     <Col sm={10}>
                       <Form.Control
@@ -75,11 +92,11 @@ class Contact extends React.Component {
                       {error.fullName && <Form.Text className="text-danger">{error.fullName}</Form.Text>}
                     </Col>
                   </Form.Group>
-                  <Form.Group as={Row} controlId="Your email address">
+                  <Form.Group as={Row} controlId="email">
                     <Col sm={10}>
                       <Form.Control
                         type="email"
-                        placeholder="Email"
+                        placeholder="Your email address"
                         value={query.email}
                         onChange={e => this.handleInputChange(e)} 
                       />
@@ -155,4 +172,6 @@ class Contact extends React.Component {
   }
 }
 
-export default Contact;
+const mapDispatchToProps = { addNewQuery };
+
+export default connect(null, mapDispatchToProps)(Contact);

@@ -117,6 +117,12 @@ footer {
 .widget-info.purple {
   background: #8e44ad;
 }
+.widget-info.blue {
+  background: #7cb5ec;/*#007bff;*/
+}
+.widget-info.lightgreen {
+  background: #90ed7d;
+}
 .widget-info h3 {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -173,6 +179,17 @@ footer {
 }
 .card-text:last-child {
   margin-bottom: 0;
+}
+.card-list {
+  width: 100%;
+}
+/*.card-list-item {
+  padding: 0.5rem 0;
+}*/
+.card-list-item > div {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 /* Card box styles */
 

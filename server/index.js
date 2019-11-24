@@ -95,6 +95,17 @@ app.post('/addNewItem', (req, res) => {
                     'email': req.body.email
                 };
                 break;
+                case 'queries':
+                    formData = {
+                        'id': items.length + 1,
+                        'fullName': req.body.fullName,
+                        'email': req.body.email,
+                        'comments': req.body.comments,
+                        'raisedTime': Date.now(),
+                        'closedTime': Date.now(),
+                        'status': 1
+                    };
+                    break;
         }
         items.push(formData);
         fs.writeFile(jsonUrl, JSON.stringify(items, null, 4), function (err) {

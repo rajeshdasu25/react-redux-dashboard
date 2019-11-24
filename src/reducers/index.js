@@ -6,9 +6,11 @@ import categories from './categoryReducer';
 import product from './indProductReducer';
 import products from './productReducer';
 import users from './userReducer';
+import queries from './queryReducer';
 import recentCategories from './recentCategoriesReducer';
 import recentProducts from './recentProductsReducer';
 import recentUsers from './recentUsersReducer';
+import recentQueries from './recentQueriesReducer';
 import allItemCategories from './allItemsReducer';
 
 const rootReducer = combineReducers({
@@ -17,11 +19,13 @@ const rootReducer = combineReducers({
     product: product,
     products: products,
     users: users,
+    queries: queries,
     modal: modal,
     form: formReducer,
     recentCategories: recentCategories,
     recentProducts: recentProducts,
     recentUsers: recentUsers,
+    recentQueries: recentQueries,
     allItems:  {
         categories: allItemCategories
     },

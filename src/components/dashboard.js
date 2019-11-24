@@ -17,36 +17,75 @@ import { fetchAllUsers, fetchTop5Users } from '../actions/users';
 import { fetchAllProducts, fetchTop5Products } from '../actions/products';
 import { fetchAllCategories, fetchTop5Categories } from '../actions/categories';
 import { fetchAllItems, fetchTop5Items } from '../actions/items';
+import { fetchAllQueries, fetchTop5Queries } from '../actions/queries';
 
 class Dashboard extends React.Component {
+    
+    fetchData = () => {
+        const urls = [
+            "http://localhost:5000/getAllItems?type=categories",
+            "http://localhost:5000/getAllItems?type=products",
+            "http://localhost:5000/getAllItems?type=users",
+            "http://localhost:5000/getAllItems?type=queries"
+        ];
+        
+        const allRequests = urls.map(url => 
+            fetch(url).then(response => response.json())
+        );
+        
+        return Promise.all(allRequests);
+    };
+
+    fetchAllItems = () => {
+        return Promise.all([
+            this.props.fetchAllCategories(),
+            this.props.fetchAllProducts(),
+            this.props.fetchAllUsers(),
+            this.props.fetchAllQueries()
+        ]);
+    }
+
     componentDidMount() {
         this.props.fetchAllItems();
         this.props.fetchAllCategories();
         this.props.fetchAllProducts();
         this.props.fetchAllUsers();
+        this.props.fetchAllQueries();
         this.props.fetchTop5Categories();
         this.props.fetchTop5Products();
         this.props.fetchTop5Users();
+        this.props.fetchTop5Queries();
 
-        const promises = Promise.all([
+        /*const promises = Promise.all([
             this.props.fetchAllItems(),
             this.props.fetchAllCategories(),
             this.props.fetchAllProducts(),
             this.props.fetchAllUsers(),
+            this.props.fetchAllQueries(),
             this.props.fetchTop5Categories(),
             this.props.fetchTop5Products(),
-            this.props.fetchTop5Users()
+            this.props.fetchTop5Users(),
+            this.props.fetchTop5Queries()
         ]);
         promises
-            /*.then((results) =>
+            .then((results) =>
                 Promise.all(results.map(r => r.text()))
             )*/
-            .then((res1, res2, res3, res4, res5, res6, res7) => console.log('results: ', res1, res2, res3, res4, res5, res6, res7))
+
+        this.fetchData().then(arrayOfResponses => 
+            console.log("The data we got from the server:", arrayOfResponses)
+        );
+
+        this.fetchAllItems().then( (arrayOfAllItems) => {
+            console.log("arrayOfAllItems:", arrayOfAllItems);
+        });
     }
 
     render() {
-        const { allItems, categories, products, users, recentCategories, recentProducts, recentUsers } = this.props;
-        console.log('allItems: ', this.props);
+        const { 
+            allItems, categories, products, users, queries, 
+            recentCategories, recentProducts, recentUsers, recentQueries
+        } = this.props;
 
         return (
             <React.Fragment>
@@ -69,6 +108,11 @@ class Dashboard extends React.Component {
                             <WidgetInfo theme='purple' text='Products' count={products.length} />
                         </Link>
                     </Col>
+                    <Col md={2} xs={4} sm={6}>
+                        {/* <Link to="/products"> */}
+                            <WidgetInfo theme='blue' text='Queries' count={queries.length} />
+                        {/* </Link> */}
+                    </Col>
                 </Row>
                 <Row>
                     <Col md={12} sm={12}>
@@ -76,17 +120,19 @@ class Dashboard extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={4} sm={6}>
+                    <Col md={3} sm={6} xs={12}>
                         <Card>
                             <Card.Header><h5>Recent Users</h5></Card.Header>
                             <Card.Body>
+                                <ul>
                                 {recentUsers && (recentUsers.length > 0) && recentUsers.map((user) => {
                                     return (
-                                        <div key={user.id}>
-                                            <div>{`${user.first_name} ${user.last_name}`}</div>
-                                        </div>
+                                        <li className="card-list-item" key={user.id}>
+                                            <span>{`${user.first_name} ${user.last_name}`}</span>
+                                        </li>
                                     );
                                 })}
+                                </ul>
                                 {recentUsers && (recentUsers.length === 0) && <div className="loader-container">
                                     <Loader type="Watch" color="#00BFFF" />
                                 </div>}
@@ -94,17 +140,19 @@ class Dashboard extends React.Component {
                             <Card.Footer className="text-right" ><Link to="/users">View all &raquo;</Link></Card.Footer>
                         </Card>
                     </Col>
-                    <Col md={4} sm={6}>
+                    <Col md={3} sm={6} xs={12}>
                         <Card>
                             <Card.Header><h5>Recent Categories</h5></Card.Header>
                             <Card.Body>
+                                <ul>
                                 {recentCategories && (recentCategories.length > 0) && recentCategories.map((category) => {
                                     return (
-                                        <div key={category.id}>
+                                        <li className="card-list-item" key={category.id}>
                                             <Link to={`/category/${category.id}`}>{category.label}</Link>
-                                        </div>
+                                        </li>
                                     );
                                 })}
+                                </ul>
                                 {recentCategories && (recentCategories.length === 0) && <div className="loader-container">
                                     <Loader type="Watch" color="#00BFFF" />
                                 </div>}
@@ -112,17 +160,39 @@ class Dashboard extends React.Component {
                             <Card.Footer className="text-right" ><Link to="/categories">View all &raquo;</Link></Card.Footer>
                         </Card>
                     </Col>
-                    <Col md={4} sm={6}>
+                    <Col md={3} sm={6} xs={12}>
                         <Card>
                             <Card.Header><h5>Recent Products</h5></Card.Header>
                             <Card.Body>
+                                <ul className="card-list">
                                 {recentProducts && (recentProducts.length > 0) && recentProducts.map((topProduct) => {
                                     return (
-                                        <div key={topProduct.id}>
+                                        <li className="card-list-item" key={topProduct.id}>
                                             <div>{topProduct.title}</div>
-                                        </div>
+                                        </li>
                                     );
                                 })}
+                                </ul>
+                                {recentProducts && (recentProducts.length === 0) && <div className="loader-container">
+                                    <Loader type="Watch" color="#00BFFF" />
+                                </div>}
+                            </Card.Body>
+                            <Card.Footer className="text-right" ><Link to="/products">View all &raquo;</Link></Card.Footer>
+                        </Card>
+                    </Col>
+                    <Col md={3} sm={6} xs={12}>
+                        <Card>
+                            <Card.Header><h5>Recent Queries</h5></Card.Header>
+                            <Card.Body>
+                                <ul>
+                                {recentQueries && (recentQueries.length > 0) && recentQueries.map((topQuery) => {
+                                    return (
+                                        <li className="card-list-item" key={topQuery.id}>
+                                            <div>{topQuery.comments}</div>
+                                        </li>
+                                    );
+                                })}
+                                </ul>
                                 {recentProducts && (recentProducts.length === 0) && <div className="loader-container">
                                     <Loader type="Watch" color="#00BFFF" />
                                 </div>}
@@ -149,7 +219,7 @@ class Dashboard extends React.Component {
                     </Col>*/}
                 </Row>
                 <Row>
-                    <Col md={6} sm={6} xs={12}>
+                    <Col md={6} sm={12} xs={12}>
                         <Card>
                             <Card.Header><h5>Intro Video</h5></Card.Header>
                             <Card.Body>
@@ -157,7 +227,7 @@ class Dashboard extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={6} sm={6} xs={12}>
+                    <Col md={6} sm={12} xs={12}>
                         <Card>
                             <Card.Header><h5>Location</h5></Card.Header>
                             <Card.Body>
@@ -166,20 +236,6 @@ class Dashboard extends React.Component {
                         </Card>
                     </Col>
                 </Row>
-                {/*<Row>
-<Col md={3} sm={6}>
-<CardBox theme="danger" />
-</Col>
-<Col md={3} sm={6}>
-<CardBox theme="warning" />
-</Col>
-<Col md={3} sm={6}>
-<CardBox theme="dark" />
-</Col>
-<Col md={3} sm={6}>
-<CardBox />
-</Col>
-</Row>*/}
             </React.Fragment>
         );
     }
@@ -191,9 +247,11 @@ const mapStateToProps = state => {
         categories: state.categories,
         users: state.users,
         products: state.products,
+        queries: state.queries,
         recentCategories: state.recentCategories,
         recentProducts: state.recentProducts,
-        recentUsers: state.recentUsers
+        recentUsers: state.recentUsers,
+        recentQueries: state.recentQueries
     };
 };
 
@@ -203,9 +261,11 @@ const mapDispatchToProps = dispatch => {
         fetchAllCategories: () => dispatch(fetchAllCategories()),
         fetchAllProducts: () => dispatch(fetchAllProducts()),
         fetchAllUsers: () => dispatch(fetchAllUsers()),
+        fetchAllQueries: () => dispatch(fetchAllQueries()),
         fetchTop5Categories: () => dispatch(fetchTop5Categories()),
         fetchTop5Products: () => dispatch(fetchTop5Products()),
-        fetchTop5Users: () => dispatch(fetchTop5Users())
+        fetchTop5Users: () => dispatch(fetchTop5Users()),
+        fetchTop5Queries: () => dispatch(fetchTop5Queries())
     };
 };
 
