@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import {
     CellMeasurer,
     CellMeasurerCache,
@@ -60,14 +61,19 @@ class Products extends React.Component {
                     <title>Products</title>
                 </Helmet>
                 <h1>Products</h1>
-                <Masonry
-                    cellCount={products.length}
-                    cellMeasurerCache={cache}
-                    cellPositioner={cellPositioner}
-                    cellRenderer={cellRenderer}
-                    height={1000}
-                    width={1000}
-                />
+                {products && (products.length > 0) && 
+                    <Masonry
+                        cellCount={products.length}
+                        cellMeasurerCache={cache}
+                        cellPositioner={cellPositioner}
+                        cellRenderer={cellRenderer}
+                        height={1000}
+                        width={1000}
+                    />
+                }
+                {products && (products.length === 0) && <div className="loader-container">
+                    <Loader type="Watch" color="#00BFFF" />
+                </div>}
             </React.Fragment>
         );
     }

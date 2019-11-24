@@ -22,7 +22,9 @@ const rootReducer = combineReducers({
     recentCategories: recentCategories,
     recentProducts: recentProducts,
     recentUsers: recentUsers,
-    allItems: allItemCategories,
+    allItems:  {
+        categories: allItemCategories
+    },
     anItem: {
         category: category,
         product: product
