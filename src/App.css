@@ -4,6 +4,11 @@
   border-radius: 0;
 }
 
+.navbar-light .navbar-brand {
+  color: #fff;
+  font-weight: bold;
+}
+
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {
   min-height: calc(100vh - 100px);
@@ -176,4 +181,22 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.contact-row {
+  margin: 0.75rem 0;
+}
+
+.brand-icon-container {
+  display:flex;
+  justify-content: center;
+}
+
+.brand-icon-container > div {
+  margin: 1rem;
+}
+
+.brand-icon-container > ul > li {
+  list-style: none;
+  padding: 1rem;
 }
