@@ -109,9 +109,9 @@ class Dashboard extends React.Component {
                         </Link>
                     </Col>
                     <Col md={2} xs={4} sm={6}>
-                        {/* <Link to="/products"> */}
+                        <Link to="/queries">
                             <WidgetInfo theme='blue' text='Queries' count={queries.length} />
-                        {/* </Link> */}
+                        </Link>
                     </Col>
                 </Row>
                 <Row>
@@ -124,15 +124,17 @@ class Dashboard extends React.Component {
                         <Card>
                             <Card.Header><h5>Recent Users</h5></Card.Header>
                             <Card.Body>
-                                <ul>
-                                {recentUsers && (recentUsers.length > 0) && recentUsers.map((user) => {
-                                    return (
-                                        <li className="card-list-item" key={user.id}>
-                                            <span>{`${user.first_name} ${user.last_name}`}</span>
-                                        </li>
-                                    );
-                                })}
-                                </ul>
+                                {recentUsers && (recentUsers.length > 0) && 
+                                    <ul className="card-list">
+                                        {recentUsers.map((user) => {
+                                            return (
+                                                <li className="card-list-item" key={user.id}>
+                                                    <div>{`${user.first_name} ${user.last_name}`}</div>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                }
                                 {recentUsers && (recentUsers.length === 0) && <div className="loader-container">
                                     <Loader type="Watch" color="#00BFFF" />
                                 </div>}
@@ -144,15 +146,17 @@ class Dashboard extends React.Component {
                         <Card>
                             <Card.Header><h5>Recent Categories</h5></Card.Header>
                             <Card.Body>
-                                <ul>
-                                {recentCategories && (recentCategories.length > 0) && recentCategories.map((category) => {
-                                    return (
-                                        <li className="card-list-item" key={category.id}>
-                                            <Link to={`/category/${category.id}`}>{category.label}</Link>
-                                        </li>
-                                    );
-                                })}
-                                </ul>
+                                {recentCategories && (recentCategories.length > 0) && 
+                                    <ul className="card-list">
+                                        {recentCategories.map((category) => {
+                                            return (
+                                                <li className="card-list-item" key={category.id}>
+                                                    <Link to={`/category/${category.id}`}>{category.label}</Link>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                }
                                 {recentCategories && (recentCategories.length === 0) && <div className="loader-container">
                                     <Loader type="Watch" color="#00BFFF" />
                                 </div>}
@@ -164,15 +168,17 @@ class Dashboard extends React.Component {
                         <Card>
                             <Card.Header><h5>Recent Products</h5></Card.Header>
                             <Card.Body>
-                                <ul className="card-list">
-                                {recentProducts && (recentProducts.length > 0) && recentProducts.map((topProduct) => {
-                                    return (
-                                        <li className="card-list-item" key={topProduct.id}>
-                                            <div>{topProduct.title}</div>
-                                        </li>
-                                    );
-                                })}
-                                </ul>
+                                {recentProducts && (recentProducts.length > 0) && 
+                                    <ul className="card-list">
+                                        {recentProducts.map((topProduct) => {
+                                            return (
+                                                <li className="card-list-item" key={topProduct.id}>
+                                                    <div>{topProduct.title}</div>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                }
                                 {recentProducts && (recentProducts.length === 0) && <div className="loader-container">
                                     <Loader type="Watch" color="#00BFFF" />
                                 </div>}
@@ -184,20 +190,25 @@ class Dashboard extends React.Component {
                         <Card>
                             <Card.Header><h5>Recent Queries</h5></Card.Header>
                             <Card.Body>
-                                <ul>
-                                {recentQueries && (recentQueries.length > 0) && recentQueries.map((topQuery) => {
-                                    return (
-                                        <li className="card-list-item" key={topQuery.id}>
-                                            <div>{topQuery.comments}</div>
-                                        </li>
-                                    );
-                                })}
-                                </ul>
-                                {recentProducts && (recentProducts.length === 0) && <div className="loader-container">
+                                {recentQueries && (recentQueries.length > 0) && 
+                                    <ul className="card-list">
+                                        {recentQueries.map((topQuery) => {
+                                            return (
+                                                <li className="card-list-item" key={topQuery.id}>
+                                                    <div>{topQuery.comments}</div>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                }
+                                {/*recentQueries && (recentQueries.length === 0) && <div className="no-data-found">
+                                    No datafound..!!!
+                            </div>*/}
+                                {recentQueries && (recentQueries.length === 0) && <div className="loader-container">
                                     <Loader type="Watch" color="#00BFFF" />
                                 </div>}
                             </Card.Body>
-                            <Card.Footer className="text-right" ><Link to="/products">View all &raquo;</Link></Card.Footer>
+                            <Card.Footer className="text-right" ><Link to="/queries">View all &raquo;</Link></Card.Footer>
                         </Card>
                     </Col>
                     {/*<Col md={4} sm={6}>

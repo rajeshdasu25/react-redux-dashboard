@@ -2,6 +2,7 @@ import Contact from '../components/contact';
 import Dashboard from '../components/dashboard';
 import Users from '../components/users/viewAllUsers';
 import Products from '../components/products';
+import Queries from '../components/queries/viewAllQueries';
 
 export const AppRoutes = [
     {
@@ -19,5 +20,9 @@ export const AppRoutes = [
     {
         component: Products,
         path: '/products',
+    },
+    {
+        component: Queries,
+        path: '/queries',
     }
 ];

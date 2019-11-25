@@ -13,6 +13,7 @@ import ViewIndProduct from './components/products/viewIndProduct';
 import Dashboard from './components/dashboard';
 import Users from './components/users/viewAllUsers';
 import Products from './components/products';
+import Queries from './components/queries/viewAllQueries';
 
 import './App.css';
 
@@ -34,6 +35,7 @@ function App() {
               <Route path='/category/:id' component={ViewIndCategory} />
               <Route path='/products' component={Products} />
               <Route path='/product/:id' component={ViewIndProduct} />
+              <Route path='/queries' component={Queries} />
             </Switch>
           </div>
         </div>
