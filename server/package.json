@@ -1,17 +1,14 @@
 {
-    "name": "react-node-express-server",
+    "name": "react-redux-dashdoard",
     "version": "1.0.0",
-    "description": "",
+    "description": "Node server for React Redux Dashboard",
+    "keywords": [],
+    "author": "Rajesh Kumar",
+    "license": "ISC",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
-        "client": "cd client && npm run start",
-        "server": "nodemon index.js",
-        "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+        "start": "node index.js"
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
     "dependencies": {
         "cors": "^2.8.5",
         "express": "latest",

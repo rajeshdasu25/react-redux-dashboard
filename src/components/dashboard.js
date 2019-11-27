@@ -19,8 +19,22 @@ import { fetchAllCategories, fetchTop5Categories } from '../actions/categories';
 import { fetchAllItems, fetchTop5Items } from '../actions/items';
 import { fetchAllQueries, fetchTop5Queries } from '../actions/queries';
 
+class Item extends React.Component {
+    render() {
+        const { label, children } = this.props;
+        return (
+            <div>
+                <div>{label}</div>
+                <div style={{ margin: '5px 25px' }}>
+                    {children && children.map((item, index) => <Item key={index} {...item} />)}
+                </div>
+            </div>
+        )
+    }
+}
+
 class Dashboard extends React.Component {
-    
+
     fetchData = () => {
         const urls = [
             "http://localhost:5000/getAllItems?type=categories",
@@ -28,11 +42,11 @@ class Dashboard extends React.Component {
             "http://localhost:5000/getAllItems?type=users",
             "http://localhost:5000/getAllItems?type=queries"
         ];
-        
-        const allRequests = urls.map(url => 
+
+        const allRequests = urls.map(url =>
             fetch(url).then(response => response.json())
         );
-        
+
         return Promise.all(allRequests);
     };
 
@@ -72,18 +86,73 @@ class Dashboard extends React.Component {
                 Promise.all(results.map(r => r.text()))
             )*/
 
-        this.fetchData().then(arrayOfResponses => 
+        this.fetchData().then(arrayOfResponses =>
             console.log("The data we got from the server:", arrayOfResponses)
         );
 
-        this.fetchAllItems().then( (arrayOfAllItems) => {
+        this.fetchAllItems().then((arrayOfAllItems) => {
             console.log("arrayOfAllItems:", arrayOfAllItems);
         });
     }
 
+    recursiveData = [
+        {
+            label: 'Level 1 - #1',
+            children: [
+                {
+                    label: 'Level 2 - #1',
+                    children: [
+                        {
+                            label: 'Level 3 - #1'
+                        },
+                        {
+                            label: 'Level 3 - #2',
+                            children: [
+                                {
+                                    label: 'Level 4 - #1',
+                                    children: [
+                                        { 
+                                            label: 'Level 5 - #1' 
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }, 
+        {
+            label: 'Level 1 - #1',
+            children: [
+                {
+                    label: 'Level 2 - #1',
+                    children: [
+                        {
+                            label: 'Level 3 - #1'
+                        },
+                        {
+                            label: 'Level 3 - #2',
+                            children: [
+                                {
+                                    label: 'Level 4 - #1',
+                                    children: [
+                                        { 
+                                            label: 'Level 5 - #1' 
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+
     render() {
-        const { 
-            allItems, categories, products, users, queries, 
+        const {
+            allItems, categories, products, users, queries,
             recentCategories, recentProducts, recentUsers, recentQueries
         } = this.props;
 
@@ -124,7 +193,7 @@ class Dashboard extends React.Component {
                         <Card>
                             <Card.Header><h5>Recent Users</h5></Card.Header>
                             <Card.Body>
-                                {recentUsers && (recentUsers.length > 0) && 
+                                {recentUsers && (recentUsers.length > 0) &&
                                     <ul className="card-list">
                                         {recentUsers.map((user) => {
                                             return (
@@ -146,7 +215,7 @@ class Dashboard extends React.Component {
                         <Card>
                             <Card.Header><h5>Recent Categories</h5></Card.Header>
                             <Card.Body>
-                                {recentCategories && (recentCategories.length > 0) && 
+                                {recentCategories && (recentCategories.length > 0) &&
                                     <ul className="card-list">
                                         {recentCategories.map((category) => {
                                             return (
@@ -168,7 +237,7 @@ class Dashboard extends React.Component {
                         <Card>
                             <Card.Header><h5>Recent Products</h5></Card.Header>
                             <Card.Body>
-                                {recentProducts && (recentProducts.length > 0) && 
+                                {recentProducts && (recentProducts.length > 0) &&
                                     <ul className="card-list">
                                         {recentProducts.map((topProduct) => {
                                             return (
@@ -190,7 +259,7 @@ class Dashboard extends React.Component {
                         <Card>
                             <Card.Header><h5>Recent Queries</h5></Card.Header>
                             <Card.Body>
-                                {recentQueries && (recentQueries.length > 0) && 
+                                {recentQueries && (recentQueries.length > 0) &&
                                     <ul className="card-list">
                                         {recentQueries.map((topQuery) => {
                                             return (
@@ -228,6 +297,18 @@ class Dashboard extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>*/}
+                </Row>
+                <Row>
+                    <Col md={6} sm={6} xs={12}>
+                        <Card>
+                            <Card.Header><h5>Recursive</h5></Card.Header>
+                            <Card.Body>
+                                <div>
+                                    {this.recursiveData.map((item, index) => <Item key={index} {...item} />)}
+                                </div>
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 </Row>
                 <Row>
                     <Col md={6} sm={12} xs={12}>
