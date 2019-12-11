@@ -6,6 +6,7 @@ import categories from './categoryReducer';
 import product from './indProductReducer';
 import products from './productReducer';
 import users from './userReducer';
+import LoggedUser from './indUserReducer';
 import queries from './queryReducer';
 import recentCategories from './recentCategoriesReducer';
 import recentProducts from './recentProductsReducer';
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     product: product,
     products: products,
     users: users,
+    LoggedUser: LoggedUser,
     queries: queries,
     modal: modal,
     form: formReducer,

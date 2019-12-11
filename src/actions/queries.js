@@ -70,7 +70,7 @@ export const fetchTop5Queries = () => {
     };
 };
 
-export const addNewQuery = (formData, message) => { debugger;
+export const addNewQuery = (formData, message) => { 
     return (dispatch) => {
         let url = appConstants.ADD_NEW_ITEM_URL + '?type=queries';
         return axios.post(url, formData)

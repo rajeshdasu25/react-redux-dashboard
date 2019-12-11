@@ -135,6 +135,18 @@ app.post('/addNewItem', (req, res) => {
     });
 });
 
+app.get('/checkUserLogin', (req, res) => { console.log('req: ', req.query);
+    let username = req.query.username;
+    let jsonUrl = './data/users.json';
+
+    fs.readFile(jsonUrl, (err, data) => {
+        if (err) throw err;
+        let items = JSON.parse(data);
+        let resultItem = items.find(item => item.username == username );
+        res.json(resultItem);
+    });
+});
+
 // Handles any requests that don't match the ones above
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/public/index.html'));

@@ -162,6 +162,10 @@ footer {
   background-color: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
+.card.info .card-header {
+  background-color: #007bff;
+  color: #fff;
+}
 .card-header:first-child {
   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
 }
@@ -216,4 +220,10 @@ footer {
 .brand-icon-container > ul > li {
   list-style: none;
   padding: 1rem;
+}
+
+.vertical-horizontal-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -14,6 +14,8 @@ import Dashboard from './components/dashboard';
 import Users from './components/users/viewAllUsers';
 import Products from './components/products';
 import Queries from './components/queries/viewAllQueries';
+import Login from './components/login/';
+import UserProfile from './components/login/profile';
 
 import './App.css';
 
@@ -29,6 +31,8 @@ function App() {
           <div className="main-container text-left">
             <Switch>
               <Route exact path='/' component={Dashboard} />
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/profile' component={UserProfile} />
               <Route path='/users' component={Users} />
               <Route path='/contact' component={Contact} />
               <Route path='/categories' component={ViewAllCategories} />

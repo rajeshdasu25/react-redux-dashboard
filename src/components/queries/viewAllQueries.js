@@ -13,8 +13,9 @@ class ViewAllQueries extends React.Component {
     
     render() { 
         const { queries } = this.props;
+
         queries.forEach(function (query) {
-            let rTime = <Moment format="YYYY/MM/DD">{query.raisedTime}</Moment>;console.log('rTime: ', rTime);
+            let rTime = <Moment format="YYYY/MM/DD">{query.raisedTime}</Moment>;
             query.expand = [];
             let expandObj = {
                 "fullName": query.fullName,

@@ -12,6 +12,7 @@ function LeftNav() {
         <li className={currentLocation === '/products' ? 'active' : ''}><Link to="/products">Products</Link></li>
         <li className={currentLocation === '/contact' ? 'active' : ''}><Link to="/contact">Contact</Link></li>
         <li className={currentLocation === '/queries' ? 'active' : ''}><Link to="/queries">Queries</Link></li>
+        <li className={currentLocation === '/profile' ? 'active' : ''}><Link to="/profile">Profile</Link></li>
       </ul>
     </div>
   )
