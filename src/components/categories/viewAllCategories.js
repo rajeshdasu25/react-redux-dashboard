@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
-import { Button/*, Modal*/ } from 'react-bootstrap';
+import { Button, Badge/*, Modal*/ } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import ModalPopup from '../common/ModalPopup';
@@ -29,7 +29,7 @@ class ViewAllCategories extends React.Component {
         this.props.showModal(true);
     }
     render() { 
-        const { categories, modal } = this.props; console.log('props: ', this.props);
+        const { categories, modal } = this.props;
         return (
             <React.Fragment>
                 <Helmet>
@@ -43,6 +43,7 @@ class ViewAllCategories extends React.Component {
                                 <th>#</th>
                                 <th>Type</th>
                                 <th>Label</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -54,16 +55,21 @@ class ViewAllCategories extends React.Component {
                                         <td>{category.type}</td>
                                         <td>{category.label}</td>
                                         <td>
+                                            <Badge variant={category.status === 1 ? 'success' : 'danger'}>
+                                                {category.status === 1 ? 'Active' : 'Inactive'}
+                                            </Badge>
+                                        </td>
+                                        <td>
                                             <Link to={`/category/${category.id}`}><Button variant="link" size="xs"/* onClick={this.handleViewItem}*/>View</Button></Link>&nbsp;
                                             <Button variant="link" size="xs" onClick={this.handleEditItem}>Edit</Button>
                                         </td>
                                     </tr>
                                 );
                             })}
-                            {categories && (categories.length === 0) && <tr><td colSpan="4"><div className="loader-container">
+                            {categories && (categories.length === 0) && <tr><td colSpan="5"><div className="loader-container">
                                 <Loader type="Watch" color="#00BFFF" />
                             </div></td></tr>}
-                            {!categories && <tr><td colSpan="4">No data found..!!!</td></tr>}
+                            {!categories && <tr><td colSpan="5">No data found..!!!</td></tr>}
                         </tbody>
                     </table>
                     <ModalPopup

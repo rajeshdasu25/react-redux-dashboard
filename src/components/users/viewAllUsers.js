@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import Loader from 'react-loader-spinner';
-import { Button/*, Modal*/ } from 'react-bootstrap';
+import { Button, Badge/*, Modal*/ } from 'react-bootstrap';
 
 import ModalPopup from '../common/ModalPopup';
 import UserFormPage from './userFormPage';
@@ -43,6 +43,7 @@ class ViewAllUsers extends React.Component {
                                 <th>Last Name</th>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -55,16 +56,21 @@ class ViewAllUsers extends React.Component {
                                         <td>{user.username}</td>
                                         <td>{user.email}</td>
                                         <td>
+                                            <Badge variant={user.status === 1 ? 'success' : 'danger'}>
+                                                {user.status === 1 ? 'Active' : 'Inactive'}
+                                            </Badge>
+                                        </td>
+                                        <td>
                                             <Button variant="link" size="xs" onClick={this.handleViewItem}>View</Button>&nbsp;
                                             <Button variant="link" size="xs" onClick={this.handleEditItem}>Edit</Button>
                                         </td>
                                     </tr>
                                 );
                             })}
-                            {users && (users.length === 0) && <tr><td colSpan="5"><div className="loader-container">
+                            {users && (users.length === 0) && <tr><td colSpan="6"><div className="loader-container">
                                 <Loader type="Watch" color="#00BFFF" />
                             </div></td></tr>}
-                            {!users && <tr><td colSpan="5">No data found..!!!</td></tr>}
+                            {!users && <tr><td colSpan="6">No data found..!!!</td></tr>}
                         </tbody>
                     </table>
                     <ModalPopup

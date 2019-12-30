@@ -5,7 +5,8 @@
         "password": "password",
         "first_name": "fname 1",
         "last_name": "lname 1",
-        "email": "user1@mail.com"
+        "email": "user1@mail.com",
+        "status": 1
     },
     {
         "id": 2,
@@ -13,7 +14,8 @@
         "password": "password",
         "first_name": "fname 2",
         "last_name": "lname 2",
-        "email": "user2@mail.com"
+        "email": "user2@mail.com",
+        "status": 1
     },
     {
         "id": 3,
@@ -21,7 +23,8 @@
         "password": "password",
         "first_name": "fname 3",
         "last_name": "lname 3",
-        "email": "user3@mail.com"
+        "email": "user3@mail.com",
+        "status": 1
     },
     {
         "id": 4,
@@ -29,7 +32,8 @@
         "password": "password",
         "first_name": "fname 4",
         "last_name": "lname 4",
-        "email": "user4@mail.com"
+        "email": "user4@mail.com",
+        "status": 1
     },
     {
         "id": 5,
@@ -37,7 +41,8 @@
         "password": "password",
         "first_name": "fname 5",
         "last_name": "lname 5",
-        "email": "user5@mail.com"
+        "email": "user5@mail.com",
+        "status": 1
     },
     {
         "id": 6,
@@ -45,7 +50,8 @@
         "password": "password",
         "first_name": "fname 6",
         "last_name": "lname 6",
-        "email": "user6@mail.com"
+        "email": "user6@mail.com",
+        "status": 1
     },
     {
         "id": 7,
@@ -53,7 +59,8 @@
         "password": "password",
         "first_name": "fname 7",
         "last_name": "lname 7",
-        "email": "user7@mail.com"
+        "email": "user7@mail.com",
+        "status": 1
     },
     {
         "id": 8,
@@ -61,7 +68,8 @@
         "password": "password",
         "first_name": "fname 8",
         "last_name": "lname 8",
-        "email": "user8@mail.com"
+        "email": "user8@mail.com",
+        "status": 1
     },
     {
         "id": 9,
@@ -69,7 +77,8 @@
         "password": "password",
         "first_name": "fname 9",
         "last_name": "lname 9",
-        "email": "user9@mail.com"
+        "email": "user9@mail.com",
+        "status": 1
     },
     {
         "id": 10,
@@ -77,7 +86,8 @@
         "password": "password",
         "first_name": "fname 10",
         "last_name": "lname 10",
-        "email": "user10@mail.com"
+        "email": "user10@mail.com",
+        "status": 1
     },
     {
         "id": 11,
@@ -85,7 +95,8 @@
         "password": "password",
         "first_name": "fname 11",
         "last_name": "lname 11",
-        "email": "user11@mail.com"
+        "email": "user11@mail.com",
+        "status": 1
     },
     {
         "id": 12,
@@ -93,7 +104,8 @@
         "password": "password",
         "first_name": "fname 12",
         "last_name": "lname 12",
-        "email": "user12@mail.com"
+        "email": "user12@mail.com",
+        "status": 1
     },
     {
         "id": 13,
@@ -101,6 +113,16 @@
         "password": "password",
         "first_name": "fname 13",
         "last_name": "lname 13",
-        "email": "user13@mail.com"
+        "email": "user13@mail.com",
+        "status": 1
+    },
+    {
+        "id": 14,
+        "username": "rajeshdasu",
+        "password": "rajeshdasu",
+        "first_name": "Rajesh Kumar",
+        "last_name": "Murugadasu",
+        "email": "rajesh@gmail.com",
+        "status": 1
     }
 ]

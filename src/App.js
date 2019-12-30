@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 // import { AppRoutes } from './config/routes';
 
@@ -18,11 +18,20 @@ import Login from './components/login/';
 import UserProfile from './components/login/profile';
 
 import './App.css';
+import './Layout.scss';
 
 function App() {
+  const [leftOpen, setLeftOpen] = useState('open');
+
+  const toggleSidebar = (event) => {
+    //let key = `${event.currentTarget.parentNode.id}Open`;
+    if(leftOpen === 'open') setLeftOpen('closed');
+    else setLeftOpen('open');
+  }
+
   return (
-    <div className="App">
-      <AppHeader />
+    <div className='App' id='layout'>
+      {/*<AppHeader />
       <div className="container-fluid">
         <div className="row content">
           <div className="leftmenu-container">
@@ -44,7 +53,38 @@ function App() {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer />*/}
+      <div id='left' className={leftOpen}>
+        <div className='icon' onClick={toggleSidebar}>&equiv;</div>
+        <div className={`sidebar ${leftOpen}`} >
+          <div className='header'>React Dashboard</div>
+          <div className='content'>
+            <LeftNav />
+          </div>
+        </div>
+      </div>
+      <div id='main'>
+        <div className='header'>
+          <AppHeader />
+        </div>
+        <div className='content main-container'>
+          <Switch>
+            <Route exact path='/' component={Dashboard} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/profile' component={UserProfile} />
+            <Route path='/users' component={Users} />
+            <Route path='/contact' component={Contact} />
+            <Route path='/categories' component={ViewAllCategories} />
+            <Route path='/category/:id' component={ViewIndCategory} />
+            <Route path='/products' component={Products} />
+            <Route path='/product/:id' component={ViewIndProduct} />
+            <Route path='/queries' component={Queries} />
+          </Switch>
+        </div>
+        <div className='footer'>
+          <Footer />
+        </div>
+      </div>
     </div>
   );
 }

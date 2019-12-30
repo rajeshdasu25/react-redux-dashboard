@@ -2,46 +2,55 @@
     {
         "id": 1,
         "type": "shirt",
-        "label": "Shirt"
+        "label": "Shirt",
+        "status": 1
     },
     {
         "id": 2,
         "type": "pant",
-        "label": "Pant"
+        "label": "Pant",
+        "status": 1
     },
     {
         "id": 3,
         "type": "shorts",
-        "label": "Shorts"
+        "label": "Shorts",
+        "status": 1
     },
     {
         "id": 4,
         "type": "shoes",
-        "label": "Shoes"
+        "label": "Shoes",
+        "status": 1
     },
     {
         "id": 5,
         "type": "watches",
-        "label": "Watches"
+        "label": "Watches",
+        "status": 1
     },
     {
         "id": 6,
         "type": "car",
-        "label": "Car"
+        "label": "Car",
+        "status": 1
     },
     {
         "id": 7,
         "type": "bike",
-        "label": "Bike"
+        "label": "Bike",
+        "status": 1
     },
     {
         "id": 8,
         "type": "home",
-        "label": "Home"
+        "label": "Home",
+        "status": 1
     },
     {
         "id": 9,
         "type": "mobile",
-        "label": "Mobile"
+        "label": "Mobile",
+        "status": 1
     }
 ]

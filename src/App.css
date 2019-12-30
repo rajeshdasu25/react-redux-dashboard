@@ -43,7 +43,7 @@
 }
 
 .main-container {
-  width: 84%;
+  /* width: 84%; */
   padding: 1em;
 }
 
@@ -226,4 +226,15 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.leftmenu .accordion .card {
+  padding: 0!important;
+  margin: 0!important;
+  background-color: #333333;
+}
+
+.leftmenu .accordion .card .card-header {
+  color: #fff;
+  background-color: #333333;
 }

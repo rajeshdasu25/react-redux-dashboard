@@ -102,7 +102,8 @@ app.post('/addNewItem', (req, res) => {
                 formData = {
                     'id': items.length + 1,
                     'type': req.body.type,
-                    'label': req.body.label
+                    'label': req.body.label,
+                    'status': 1
                 };
                 break;
             case 'users':
@@ -112,20 +113,21 @@ app.post('/addNewItem', (req, res) => {
                     'password': req.body.password,
                     'first_name': req.body.first_name,
                     'last_name': req.body.last_name,
-                    'email': req.body.email
+                    'email': req.body.email,
+                    'status': 1
                 };
                 break;
-                case 'queries':
-                    formData = {
-                        'id': items.length + 1,
-                        'fullName': req.body.fullName,
-                        'email': req.body.email,
-                        'comments': req.body.comments,
-                        'raisedTime': Date.now(),
-                        'closedTime': Date.now(),
-                        'status': 1
-                    };
-                    break;
+            case 'queries':
+                formData = {
+                    'id': items.length + 1,
+                    'fullName': req.body.fullName,
+                    'email': req.body.email,
+                    'comments': req.body.comments,
+                    'raisedTime': Date.now(),
+                    'closedTime': Date.now(),
+                    'status': 1
+                };
+                break;
         }
         items.push(formData);
         fs.writeFile(jsonUrl, JSON.stringify(items, null, 4), function (err) {
